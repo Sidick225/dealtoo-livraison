@@ -42,12 +42,12 @@
 
                         <div class="row mb-3 cardC" data-aos="zoom-in" data-aos-duration="1000">
                             <div class="col-md-2 p-2">
-                                <img src="{{$livreur['image']}}" alt="" width="100%; text-align:center">
+                                <img src="{{'images/'.$livreur->image_profil}}" alt="" width="100%; text-align:center">
                             </div>
                             <div class="col-md-10 card p-0">
                                 <div class="card-header">
-                                    <a href="/detail/{{$livreur['id']}}" style="text-decoration: unset; color:unset">
-                                        <h2>{{$livreur['name']}}</h2>
+                                    <a href="{{route('livreurs.show', $livreur->id)}}" style="text-decoration: unset; color:unset">
+                                        <h2>{{$livreur->name}}</h2>
                                     </a>
                                     <div class="d-flex">
                                         {{-- <button type="button" class="btn btn-success btn-sm">Ouvert <i class="bi bi-chevron-down"></i></button> --}}
@@ -55,47 +55,41 @@
                                             <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                               Ouvert
                                             </button>
-                                            {{-- <ul class="dropdown-menu">
-                                              <li><a class="dropdown-item" href="#">Action</a></li>
-                                              <li><a class="dropdown-item" href="#">Another action</a></li>
-                                              <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                            </ul> --}}
-
                                             <table class="dropdown-menu table table">
                                                 <tbody>
-                                                <tr>
-                                                    <td>Lundi</td>
-                                                    <td class="text-center">8h00 - 18h00</td>
-                                                </tr>
-                                                <tr style="font-weight:bolder">
-                                                    <td>Mardi</td>
-                                                    <td class="text-center">8h00 - 18h00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Mercredi</td>
-                                                    <td class="text-center">8h00 - 18h00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Jeudi</td>
-                                                    <td class="text-center">8h00 - 18h00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Vendredi</td>
-                                                    <td class="text-center">8h00 - 18h00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Samedi</td>
-                                                    <td class="text-center">Fermé</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Dimanche</td>
-                                                    <td class="text-center">Fermé</td>
-                                                </tr>
+                                                    <tr>
+                                                        <td>Lundi</td>
+                                                        <td class="text-center">{{$livreur->lundi_heure_debut}}- {{$livreur->lundi_heure_fin}}</td>
+                                                    </tr>
+                                                    <tr style="font-weight:bolder">
+                                                        <td>Mardi</td>
+                                                        <td class="text-center">{{$livreur->mardi_heure_debut}} - {{$livreur->mardi_heure_fin}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Mercredi</td>
+                                                        <td class="text-center">{{$livreur->mercredi_heure_debut}} - {{$livreur->mercredi_heure_fin}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Jeudi</td>
+                                                        <td class="text-center">{{$livreur->jeudi_heure_debut}} - {{$livreur->jeudi_heure_fin}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Vendredi</td>
+                                                        <td class="text-center">{{$livreur->vendredi_heure_debut}} - {{$livreur->vendredi_heure_fin}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Samedi</td>
+                                                        <td class="text-center">{{$livreur->samedi_heure_debut}} - {{$livreur->samedi_heure_fin}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Dimanche</td>
+                                                        <td class="text-center">{{$livreur->dimanche_heure_debut}} - {{$livreur->dimanche_heure_fin}}</td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
                                         <p class="mx-3 d-flex text-black mb-0 ms-auto" style="font-weight: bolder">
-                                            <i class="bi bi-phone"></i><span class="ms-2">0768250140</span>
+                                            <i class="bi bi-phone"></i><span class="ms-2">{{$livreur->contact}}</span>
                                         </p>
                                     </div>
 
@@ -106,32 +100,31 @@
                                         {{-- <i class="bi bi-geo-alt"></i> --}}
                                         <div class="mx-3" style="max-width:80%">
                                             <p class="text-black" style="font-size:15px !important">
-                                                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                                {{$livreur->presentaion}}
                                             </p>
                                         </div>
                                     </div>
 
                                     <div class="ms-3 row">
-                                        <a href="/detail/{{$livreur['id']}}" style="text-decoration: unset; color:unset; display: contents;"><div class="col-md-4 d-flex clikable-item">
+                                        <a href="{{route('livreurs.show', $livreur->id)}}" style="text-decoration: unset; color:unset; display: contents;"><div class="col-md-4 d-flex clikable-item">
                                             <span class="py-1" style="border-radius: 50%; border:1px solid orange; padding-inline:10px">
                                                 {{-- <i class="bi bi-geo-alt"></i> --}}
                                                 <i class="bi bi-file-earmark" style="color: orange"></i>
                                             </span>
                                             <p class="m-2" style="font-size:15px !important">Voir la fiche</p>
                                         </div></a>
-                                        <div class="col-md-4 d-flex clikable-item">
+                                        <a href="{{$livreur->map}}" style="text-decoration: unset; color:unset; display: contents;"><div class="col-md-4 d-flex clikable-item">
                                             <span class="py-1" style="border-radius: 50%; border:1px solid orange; padding-inline:10px">
                                                 <i class="bi bi-geo-alt" style="color: orange"></i>
                                             </span>
                                             <p class="m-2" style="font-size:15px !important">Localisation</p>
-                                        </div>
-                                        <div class="col-md-4 d-flex clikable-item">
+                                        </div></a>
+                                        <a href="{{$livreur->site_web}}" style="text-decoration: unset; color:unset; display: contents;"><div class="col-md-4 d-flex clikable-item">
                                             <span class="py-1" style="border-radius: 50%; border:1px solid orange; padding-inline:10px">
                                                 <i class="bi bi-globe" style="color: orange"></i>
                                             </span>
                                             <p class="m-2" style="font-size:15px !important">Site web</p>
-                                        </div>
+                                        </div></a>
                                     </div>
                                     {{-- <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer> --}}
                                 </blockquote>
@@ -140,9 +133,11 @@
 
                         </div>
                     @endforeach
+                    <br><br>
+                    <div style="text-align:center">{{ $livreurs->links('vendor.pagination.bootstrap-4') }}</div>
 
                 </div>
-                <div id="sideBox" class="col-md-3 ms-auto">
+                <div id="sideBox" class="col-md-3 ms-auto" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQ8YWxdPM6ExHf5k1Lpk1sFxvliU-wRiRjDw&s'); background-position:center; background-size:cover">
                     <br><br>
                     <h1>ifneybune</h1>
                     <br><br>
@@ -170,7 +165,7 @@
         @include('layouts.footer')
 
         <div style="position: relative;">
-            <div id="sideBoxBottom" class="col-md-3 d-none">
+            <div id="sideBoxBottom" class="col-md-3 d-none" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQ8YWxdPM6ExHf5k1Lpk1sFxvliU-wRiRjDw&s'); background-position:center; background-size:cover">
                 <br><br>
                 <h1>ifneybune</h1>
                 <br><br>
@@ -247,7 +242,10 @@
             })
         </script>
         <script>
-            AOS.init();
+            AOS.init({
+                once: true
+            });
         </script>
+        @include('sweetalert::alert')
     </body>
 </html>

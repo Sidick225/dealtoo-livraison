@@ -26,7 +26,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Petites annonces</a>
+              <a class="nav-link disabled" href="#">Petites annonces</a>
             </li>
             {{-- <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -43,18 +43,15 @@
                 <a class="nav-link disabled" href="#">Tarif</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="/">se con</a>
+                <a class="nav-link " href="/registerLivreur">Inscrire un société</a>
             </li>
             @guest
-            <li class="nav-item">
-                <a class="nav-link" href="/login">Se connecter</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link disabled" href="/register">S'inscrire</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Se connecter</a>
               </li>
             @else
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="/dashboard">Tableau de bord</a>
+                    <a class="nav-link " href="/dashboard">Tableau de bord</a>
                 </li>
             @endguest
           </ul>

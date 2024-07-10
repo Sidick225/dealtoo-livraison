@@ -553,6 +553,7 @@ header{
         background:#999;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
         transition: position 0.5s;
+        width: 86vw;
     }
 
 
