@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Login Dealtoo Livraison</title>
+	<title>Login Deli</title>
    <!--Made with love by Mutiullah Samim -->
 
 	<!--Bootsrap 4 CDN-->
@@ -14,7 +14,7 @@
 
     <!--Fontawesome CDN-->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
+    <link rel="shortcut icon" href="{{asset('assets/favicon.png')}}" type="image/x-icon">
 	<!--Custom styles-->
 	<style>
         /* Made with love by Mutiullah Samim*/

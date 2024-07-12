@@ -32,7 +32,7 @@
             <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-gray-200">
                 <div :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false" class="fixed inset-0 z-20 transition-opacity bg-black opacity-50 lg:hidden"></div>
 
-                <div :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'" class="fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 transform bg-gray-900 lg:translate-x-0 lg:static lg:inset-0">
+                <div :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'" class="fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 transform bg-gray-500 lg:translate-x-0 lg:static lg:inset-0">
                     <div class="flex items-center justify-center mt-8">
                         <div class="flex items-center">
                             {{-- <svg class="w-12 h-12" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -41,12 +41,12 @@
                             </svg>
 
                             <span class="mx-2 text-2xl font-semibold text-white">Dashboard</span> --}}
-                            <a href="/"><img class="mainLogo" src="{{asset('assets/thumb-816x460-logo-6659f6148571a.png')}}" alt="logo Dealtoo" style=""></a>
+                            <a href="/"><img class="mainLogo" src="{{asset('assets/thumb-816x460-logo-6659f6148571a.png')}}" alt="logo Deli" style=""></a>
                         </div>
                     </div>
 
                     <nav class="mt-10">
-                        <a class="flex items-center px-6 py-2 mt-4 @if(Route::currentRouteName() == 'dashboard')) text-gray-100 bg-gray-700 bg-opacity-25 @else text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 @endif"
+                        <a class="flex items-center px-6 py-2 mt-4 @if(Route::currentRouteName() == 'dashboard')) text-gray-100 bg-gray-700 bg-opacity-25 @else text-gray-100 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 @endif"
                         href="{{route('dashboard')}}">
                             <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
@@ -56,32 +56,64 @@
                                     d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
                             </svg>
 
-                            <span class="mx-3">Tableau de board</span>
+                            <span class="mx-3">Tableau de bord</span>
                         </a>
 
-                        <a class="flex items-center px-6 py-2 mt-4 @if(Route::currentRouteName() == 'demande_certification')) text-gray-100 bg-gray-700 bg-opacity-25 @else text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 @endif"
-                            href="{{route('demande_certification')}}">
-                            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        @if (Auth::user()->role != 3)
+                            <a class="flex items-center px-6 py-2 mt-4 @if(Route::currentRouteName() == 'demande_certification')) text-gray-100 bg-gray-700 bg-opacity-25 @else text-gray-100 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 @endif"
+                                href="{{route('demande_certification')}}">
+                                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                                    </path>
+                                </svg>
+
+                                <span class="mx-3">Demandes de certification</span>
+                                @isset($livreurs)
+                                    @php
+                                        $nbrDemande = 0;
+                                    @endphp
+                                    @foreach ($livreurs as $livreur)
+                                        @if ($livreur->certified == "en attente")
+                                            @php
+                                                $nbrDemande+=1
+                                            @endphp
+                                        @endif
+                                    @endforeach
+                                    @if ($nbrDemande > 0)
+                                    <span class="inline-flex px-2 text-xs font-semibold leading-5 text-gray-800 bg-gray-100 rounded-full">
+                                        {{$nbrDemande}}
+                                    </span>
+                                    @endif
+                                @endisset
+                            </a>
+                            <a class="flex items-center px-6 py-2 mt-4 @if(Route::currentRouteName() == 'registerLivreur')) text-gray-100 bg-gray-700 bg-opacity-25 @else text-gray-100 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 @endif"
+                                href="{{route('registerLivreur')}}">
+                                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z">
+                                    </path>
+                                </svg>
+                                <span class="mx-3">Ajouter une société de livraison</span>
+                            </a>
+                            <a class="flex items-center px-6 py-2 mt-4 @if(Route::currentRouteName() == 'publicite')) text-gray-100 bg-gray-700 bg-opacity-25 @else text-gray-100 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 @endif"
+                                href="{{route('publicite')}}">
+                                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"stroke="currentColor">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 9H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h6m0-6v6m0-6 5.419-3.87A1 1 0 0 1 18 5.942v12.114a1 1 0 0 1-1.581.814L11 15m7 0a3 3 0 0 0 0-6M6 15h3v5H6v-5Z"/>
+                                  </svg>
+                                <span class="mx-3">Pub de société</span>
+                            </a>
+                            {{-- @else
+                            <a class="flex items-center px-6 py-2 mt-4 @if(Route::currentRouteName() == 'avis.show')) text-gray-100 bg-gray-700 bg-opacity-25 @else text-gray-100 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 @endif"
+                                href="{{route('avis.show', Auth::user()->id)}}">
+                                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
-                                </path>
-                            </svg>
-
-                            <span class="mx-3">Demande de certification</span>
-                        </a>
-
-                        <a class="flex items-center px-6 py-2 mt-4 @if(Route::currentRouteName() == 'registerLivreur')) text-gray-100 bg-gray-700 bg-opacity-25 @else text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 @endif"
-                            href="{{route('registerLivreur')}}">
-                            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z">
-                                </path>
-                            </svg>
-
-                            <span class="mx-3">Ajouter une société de livraison</span>
-                        </a>
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 10.5h.01m-4.01 0h.01M8 10.5h.01M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-6.6a1 1 0 0 0-.69.275l-2.866 2.723A.5.5 0 0 1 8 18.635V17a1 1 0 0 0-1-1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/>
+                                </svg>
+                                <span class="mx-3">Avis sur ma société</span>
+                            </a> --}}
+                        @endif
 
                         {{-- <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100"
                             href="#">
@@ -97,7 +129,7 @@
                     </nav>
                 </div>
                 <div class="flex flex-col flex-1 overflow-hidden">
-                    <header class="flex items-center justify-between px-6 py-4 bg-white border-b-4 border-orange-600">
+                    <header class="flex items-center justify-between px-6 py-4 bg-white border-b-4 border-yellow-400">
                         <div class="flex items-center">
                             <button @click="sidebarOpen = true" class="text-gray-500 focus:outline-none lg:hidden">
                                 <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -127,18 +159,18 @@
                                     class="absolute right-0 z-10 mt-2 overflow-hidden bg-white rounded-lg shadow-xl w-80"
                                     style="width: 20rem; display: none;">
                                     <a href="#"
-                                        class="flex items-center px-4 py-3 -mx-2 text-gray-600 hover:text-white hover:bg-orange-600">
+                                        class="flex items-center px-4 py-3 -mx-2 text-gray-600 hover:text-white hover:bg-yellow-400">
 
                                         <img class="object-cover w-8 h-8 mx-1 rounded-full"
                                             src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=334&amp;q=80"
                                             alt="photo de profil utilisateur">
                                         <p class="mx-2 text-sm">
                                             <span class="font-bold" href="#">Sara Salah</span> replied on the <span
-                                                class="font-bold text-orange-400" href="#">Upload Image</span> artical . 2m
+                                                class="font-bold text-yellow-400" href="#">Upload Image</span> artical . 2m
                                         </p>
                                     </a>
                                     <a href="#"
-                                        class="flex items-center px-4 py-3 -mx-2 text-gray-600 hover:text-white hover:bg-orange-600">
+                                        class="flex items-center px-4 py-3 -mx-2 text-gray-600 hover:text-white hover:bg-yellow-400">
                                         <img class="object-cover w-8 h-8 mx-1 rounded-full"
                                             src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=634&amp;q=80"
                                             alt="avatar">
@@ -147,17 +179,17 @@
                                         </p>
                                     </a>
                                     <a href="#"
-                                        class="flex items-center px-4 py-3 -mx-2 text-gray-600 hover:text-white hover:bg-orange-600">
+                                        class="flex items-center px-4 py-3 -mx-2 text-gray-600 hover:text-white hover:bg-yellow-400">
                                         <img class="object-cover w-8 h-8 mx-1 rounded-full"
                                             src="https://images.unsplash.com/photo-1450297350677-623de575f31c?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=334&amp;q=80"
                                             alt="avatar">
                                         <p class="mx-2 text-sm">
                                             <span class="font-bold" href="#">Jane Doe</span> Like Your reply on <span
-                                                class="font-bold text-orange-400" href="#">Test with TDD</span> artical . 1h
+                                                class="font-bold text-yellow-400" href="#">Test with TDD</span> artical . 1h
                                         </p>
                                     </a>
                                     <a href="#"
-                                        class="flex items-center px-4 py-3 -mx-2 text-gray-600 hover:text-white hover:bg-orange-600">
+                                        class="flex items-center px-4 py-3 -mx-2 text-gray-600 hover:text-white hover:bg-yellow-400">
                                         <img class="object-cover w-8 h-8 mx-1 rounded-full"
                                             src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=398&amp;q=80"
                                             alt="avatar">
@@ -169,13 +201,19 @@
                             </div> --}}
 
                             <div x-data="{ dropdownOpen: false }" class="relative flex">
-                                <span class="m-auto">{{Auth::user()->name}}</span>
-                                <button @click="dropdownOpen = ! dropdownOpen"
-                                    class="relative block ms-2 w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none">
-                                    <img class="object-cover w-full h-full"
-                                        src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=296&amp;q=80"
-                                        alt="Your avatar">
-                                </button>
+                                <div @click="dropdownOpen = ! dropdownOpen" class="flex">
+                                    <span class="m-auto">{{Auth::user()->name}}</span>
+                                    <button
+                                        class="relative block ms-2 w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none">
+                                        <img class="object-cover w-full h-full"
+                                            src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=296&amp;q=80"
+                                            alt="Your avatar">
+
+                                    </button>
+                                    <svg class="w-6 h-6 mt-1 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
+                                    </svg>
+                                </div>
 
                                 <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10 w-full h-full"
                                     style="display: none;"></div>
@@ -184,10 +222,10 @@
                                     class="absolute right-0 z-10 w-48 mt-2 pt-3 overflow-hidden bg-white rounded-md shadow-xl"
                                     style="display: none;">
                                     <a href="{{route('profile.edit')}}"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-600 hover:text-white">Profile</a>
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-yellow-400 hover:text-white">Profile</a>
                                     <form action="{{route('logout')}}" method="post">
                                         @csrf
-                                        <button class="block w-[100%] text-left px-4 py-2 text-sm text-gray-700 hover:bg-orange-600 hover:text-white">
+                                        <button class="block w-[100%] text-left px-4 py-2 text-sm text-gray-700 hover:bg-yellow-400 hover:text-white">
                                             Deconnexion
                                         </button>
                                     </form>
@@ -207,5 +245,15 @@
 
         <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
         <script src="https://cdn.tailwindcss.com"></script>
+        @include('sweetalert::alert')
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Opération réussie!',
+                timer: 1500,  // Durée en millisecondes après laquelle la notification se ferme automatiquement
+                showConfirmButton: false,  // Ne pas afficher le bouton "OK"
+                timerProgressBar: true  // Afficher une barre de progression du timer
+            });
+        </script>
     </body>
 </html>

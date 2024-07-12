@@ -44,3 +44,13 @@
         </ul>
     </nav>
 @endif
+
+<style>
+    .page-item.active .page-link {
+        background-color: orange;
+        border-color: orange;
+    }
+    .page-link{
+        color: orange
+    }
+</style>

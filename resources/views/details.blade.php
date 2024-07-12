@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Détails livreurs - Dealtoo</title>
+        <title>Détails livreurs - Deli</title>
         <link rel="shortcut icon" href="{{asset('assets/favicon.png')}}" type="image/x-icon">
         <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -14,8 +14,6 @@
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
         <style>
             a{
                 text-decoration: unset;
@@ -30,7 +28,17 @@
     <body>
         @include('layouts.header')
 
-        <section class="content">
+        <section class="content mt-5">
+            @if ($livreur->avis->count() > 0)
+                @php
+                    $totalNotes = $livreur->avis->sum('note');
+                    $averageNote = ($totalNotes / ($livreur->avis->count() * 5)) * 5;
+                @endphp
+            @else
+                @php
+                    $averageNote = 0;
+                @endphp
+            @endif
             {{-- @foreach ($livreurs as $livreur)
                 @if ($livreur['id'] == $data) --}}
                     <div class="card p-0">
@@ -49,31 +57,31 @@
                                     <tbody>
                                         <tr>
                                             <td>Lundi</td>
-                                            <td class="text-center">{{$livreur->lundi_heure_debut}}- {{$livreur->lundi_heure_fin}}</td>
+                                            <td class="text-center">@if($livreur->lundi_ferme) Fermé @else @endif {{$livreur->lundi_heure_debut}}- {{$livreur->lundi_heure_fin}}</td>
                                         </tr>
                                         <tr>
                                             <td>Mardi</td>
-                                            <td class="text-center">{{$livreur->mardi_heure_debut}} - {{$livreur->mardi_heure_fin}}</td>
+                                            <td class="text-center">@if($livreur->mardi_ferme) Fermé @else {{$livreur->mardi_heure_debut}} - {{$livreur->mardi_heure_fin}} @endif</td>
                                         </tr>
                                         <tr>
                                             <td>Mercredi</td>
-                                            <td class="text-center">{{$livreur->mercredi_heure_debut}} - {{$livreur->mercredi_heure_fin}}</td>
+                                            <td class="text-center">@if($livreur->mercredi_ferme) Fermé @else {{$livreur->mercredi_heure_debut}} - {{$livreur->mercredi_heure_fin}} @endif</td>
                                         </tr>
                                         <tr>
                                             <td>Jeudi</td>
-                                            <td class="text-center">{{$livreur->jeudi_heure_debut}} - {{$livreur->jeudi_heure_fin}}</td>
+                                            <td class="text-center">@if($livreur->jeudi_ferme) Fermé @else {{$livreur->jeudi_heure_debut}} - {{$livreur->jeudi_heure_fin}} @endif</td>
                                         </tr>
                                         <tr>
                                             <td>Vendredi</td>
-                                            <td class="text-center">{{$livreur->vendredi_heure_debut}} - {{$livreur->vendredi_heure_fin}}</td>
+                                            <td class="text-center">@if($livreur->vendredi_ferme) Fermé @else {{$livreur->vendredi_heure_debut}} - {{$livreur->vendredi_heure_fin}} @endif</td>
                                         </tr>
                                         <tr>
                                             <td>Samedi</td>
-                                            <td class="text-center">{{$livreur->samedi_heure_debut}} - {{$livreur->samedi_heure_fin}}</td>
+                                            <td class="text-center">@if($livreur->samedi_ferme) Fermé @else {{$livreur->samedi_heure_debut}} - {{$livreur->samedi_heure_fin}} @endif</td>
                                         </tr>
                                         <tr>
                                             <td>Dimanche</td>
-                                            <td class="text-center">{{$livreur->dimanche_heure_debut}} - {{$livreur->dimanche_heure_fin}}</td>
+                                            <td class="text-center">@if($livreur->dimanche_ferme) Fermé @else {{$livreur->dimanche_heure_debut}} - {{$livreur->dimanche_heure_fin}} @endif</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -81,7 +89,20 @@
                         </div>
                     </div>
 
-                    <h1 style="margin-top:-40px"> {{$livreur->name}} </h1>
+                    <div class="d-flex">
+                        <h1 style="margin-top:-40px"> {{$livreur->nom_societe}}
+                            @if ($livreur->certified == 1)
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="green" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd" d="M12 2c-.791 0-1.55.314-2.11.874l-.893.893a.985.985 0 0 1-.696.288H7.04A2.984 2.984 0 0 0 4.055 7.04v1.262a.986.986 0 0 1-.288.696l-.893.893a2.984 2.984 0 0 0 0 4.22l.893.893a.985.985 0 0 1 .288.696v1.262a2.984 2.984 0 0 0 2.984 2.984h1.262c.261 0 .512.104.696.288l.893.893a2.984 2.984 0 0 0 4.22 0l.893-.893a.985.985 0 0 1 .696-.288h1.262a2.984 2.984 0 0 0 2.984-2.984V15.7c0-.261.104-.512.288-.696l.893-.893a2.984 2.984 0 0 0 0-4.22l-.893-.893a.985.985 0 0 1-.288-.696V7.04a2.984 2.984 0 0 0-2.984-2.984h-1.262a.985.985 0 0 1-.696-.288l-.893-.893A2.984 2.984 0 0 0 12 2Zm3.683 7.73a1 1 0 1 0-1.414-1.413l-4.253 4.253-1.277-1.277a1 1 0 0 0-1.415 1.414l1.985 1.984a1 1 0 0 0 1.414 0l4.96-4.96Z" clip-rule="evenodd"/>
+                            </svg>
+                            @endif
+                        </h1>
+                        <span class="ms-auto mr-5" style="font-weight: bolder">
+                            Note: {{number_format($averageNote, 1)}} / 5
+                        </span>
+                    </div>
+
+                    <p>{{$livreur->presentation}}</p>
                     <br>
 
                     <div class="d-flex p-2" id="fixedElement" style="overflow-x: auto">
@@ -113,11 +134,11 @@
                                     <div class="row">
                                         <div class="col-md-8">
                                             <a href="{{$livreur->map_link}}"><div class="px-2 my-2 d-flex">
-                                                <i class="bi bi-geo-alt" style="color: orange"></i>
+                                                <i class="bi bi-geo-alt" style="color: rgb(255, 208, 0)"></i>
                                                 <p class="ms-3">{{$livreur->localisation}}</p>
                                             </div></a>
-                                            <a href=""><div class="px-2 my-2 d-flex">
-                                                <i class="bi bi-globe" style="color: orange"></i>
+                                            <a href="{{$livreur->site_web}}"><div class="px-2 my-2 d-flex">
+                                                <i class="bi bi-globe" style="color: rgb(255, 208, 0)"></i>
                                                 <p class="ms-3">{{$livreur->site_web}}</p>
                                             </div></a>
                                             <div class="px-2 my-2 d-flex">
@@ -149,27 +170,27 @@
                             <div class="card p-0 mt-5 mb-2" id="services" style="border-radius: 10px;">
                                 <div class="card-body" style="">
                                     <h3 class="my-4">Services</h3>
-                                    <div class="d-flex" style="overflow-x:auto">
+                                    <div class="d-flex serviceDiv" style="overflow-x:auto;">
                                         @if ($livreur->servicePicture1)
-                                            <div class="card">
-                                                <img class="card-img-top" src="{{asset('images') .'/'.$livreur->servicePicture1}}" alt="Card image cap">
-                                                <div class="card-body p-1">
+                                            <div class="card" style="max-width: 220px">
+                                                <img class="card-img-top w-full" style="height: 70%; object-fit:cover; object-position:center" src="{{asset('images') .'/'.$livreur->servicePicture1}}" alt="Card image cap">
+                                                <div class="card-body p-2">
                                                 <p class="card-title text-center text-sm">{{$livreur->servicename1}}</p>
                                                 </div>
                                             </div>
                                         @endif
                                         @if ($livreur->servicePicture2)
-                                            <div class="ms-2 card">
-                                                <img class="card-img-top" src="{{asset('images') .'/'.$livreur->servicePicture2}}" alt="Card image cap">
-                                                <div class="card-body p-1">
+                                            <div class="ms-2 card" style="max-width: 220px">
+                                                <img class="card-img-top w-full" style="height: 70%; object-fit:cover; object-position:center" src="{{asset('images') .'/'.$livreur->servicePicture2}}" alt="Card image cap">
+                                                <div class="card-body p-2">
                                                 <p class="card-title text-center text-sm">{{$livreur->servicename2}}</p>
                                                 </div>
                                             </div>
                                         @endif
                                         @if ($livreur->servicePicture3)
-                                            <div class="ms-2 card">
-                                                <img class="card-img-top" src="{{asset('images') .'/'.$livreur->servicePicture3}}" alt="Card image cap">
-                                                <div class="card-body p-1">
+                                            <div class="ms-2 card" style="max-width: 220px">
+                                                <img class="card-img-top w-full" style="height: 70%; object-fit:cover; object-position:center" src="{{asset('images') .'/'.$livreur->servicePicture3}}" alt="Card image cap">
+                                                <div class="card-body p-2">
                                                 <p class="card-title text-center text-sm">{{$livreur->servicename3}}</p>
                                                 </div>
                                             </div>
@@ -187,9 +208,9 @@
                                                 @php
                                                     $imagesList = explode(', ', $livreur->images);
                                                 @endphp
-                                                @foreach ($imagesList as $image)
-                                                    <div class="carousel-item active">
-                                                        <img src="{{asset('images') .'/'. $image}}" class="d-block w-100" alt="Slide">
+                                                @foreach ($imagesList as $index => $image)
+                                                    <div class="carousel-item @if ($index === 0) active @endif">
+                                                        <img src="{{ asset('images') . '/' . $image }}" class="d-block w-100" class="d-block w-100" alt="Slide">
                                                     </div>
                                                 @endforeach
                                             </div>
@@ -205,20 +226,15 @@
 
                                         <div class="row mt-3">
                                             <div id="carouselThumbnails" class="carousel-thumbnails pr-0">
-                                                @foreach ($imagesList as $image)
-                                                    <div class="carousel-item active">
-                                                        @if ($loop->first)
-                                                        <img src="{{asset('images') .'/'. $image}}" alt="Thumbnail " class="img-fluid active" data-target="#carouselExample" data-slide-to="0">
-                                                        @else
-                                                        <img src="{{asset('images') .'/'. $image}}" alt="Thumbnail " class="img-fluid" data-target="#carouselExample" data-slide-to="0">
-                                                        @endif
-
-                                                        {{-- <img src="{{asset('images') .'/'. $image}}" class="d-block w-100" alt="Slide"> --}}
-                                                    </div>
+                                                @foreach ($imagesList as $index => $image)
+                                                    <img src="{{ asset('images') . '/' . $image }}" alt="Thumbnail" class="img-fluid @if ($index === 0) active @endif"
+                                                            data-target="#carouselExample" data-slide-to="{{ $index }}">
                                                 @endforeach
                                             </div>
                                         </div>
                                     </div>
+
+
                                 </div>
                             </div>
 
@@ -234,31 +250,31 @@
                                         <tbody>
                                             <tr>
                                                 <td>Lundi</td>
-                                                <td class="text-center">{{$livreur->lundi_heure_debut}}- {{$livreur->lundi_heure_fin}}</td>
+                                                <td class="text-center">@if($livreur->lundi_ferme) Fermé @else @endif {{$livreur->lundi_heure_debut}}- {{$livreur->lundi_heure_fin}}</td>
                                             </tr>
                                             <tr>
                                                 <td>Mardi</td>
-                                                <td class="text-center">{{$livreur->mardi_heure_debut}} - {{$livreur->mardi_heure_fin}}</td>
+                                                <td class="text-center">@if($livreur->mardi_ferme) Fermé @else {{$livreur->mardi_heure_debut}} - {{$livreur->mardi_heure_fin}} @endif</td>
                                             </tr>
                                             <tr>
                                                 <td>Mercredi</td>
-                                                <td class="text-center">{{$livreur->mercredi_heure_debut}} - {{$livreur->mercredi_heure_fin}}</td>
+                                                <td class="text-center">@if($livreur->mercredi_ferme) Fermé @else {{$livreur->mercredi_heure_debut}} - {{$livreur->mercredi_heure_fin}} @endif</td>
                                             </tr>
                                             <tr>
                                                 <td>Jeudi</td>
-                                                <td class="text-center">{{$livreur->jeudi_heure_debut}} - {{$livreur->jeudi_heure_fin}}</td>
+                                                <td class="text-center">@if($livreur->jeudi_ferme) Fermé @else {{$livreur->jeudi_heure_debut}} - {{$livreur->jeudi_heure_fin}} @endif</td>
                                             </tr>
                                             <tr>
                                                 <td>Vendredi</td>
-                                                <td class="text-center">{{$livreur->vendredi_heure_debut}} - {{$livreur->vendredi_heure_fin}}</td>
+                                                <td class="text-center">@if($livreur->vendredi_ferme) Fermé @else {{$livreur->vendredi_heure_debut}} - {{$livreur->vendredi_heure_fin}} @endif</td>
                                             </tr>
                                             <tr>
                                                 <td>Samedi</td>
-                                                <td class="text-center">{{$livreur->samedi_heure_debut}} - {{$livreur->samedi_heure_fin}}</td>
+                                                <td class="text-center">@if($livreur->samedi_ferme) Fermé @else {{$livreur->samedi_heure_debut}} - {{$livreur->samedi_heure_fin}} @endif</td>
                                             </tr>
                                             <tr>
                                                 <td>Dimanche</td>
-                                                <td class="text-center">{{$livreur->dimanche_heure_debut}} - {{$livreur->dimanche_heure_fin}}</td>
+                                                <td class="text-center">@if($livreur->dimanche_ferme) Fermé @else {{$livreur->dimanche_heure_debut}} - {{$livreur->dimanche_heure_fin}} @endif</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -266,30 +282,62 @@
                             </div>
 
                             <div class="card p-0 mt-5 mb-2" id="avis" style="border-radius: 10px;">
-                                <div class="card-body">
+                                <form action="{{route('avis.store')}}" method="post" class="card-body">
+                                    @csrf
                                     <h3 class="my-4">Donnez votre avis</h3>
                                     <p>Soyez le premier à donner votre avis sur cette société.</p>
 
                                     <div class="d-flex">
                                         <span class="p-2">Note</span>
                                         <div class="rating ms-5">
-                                            <span style="font-size: 25px" onmouseover="highlightStars(1)" onmouseout="resetStars()" onclick="submitRating(1)">&#9734;</span>
-                                            <span style="font-size: 25px" onmouseover="highlightStars(2)" onmouseout="resetStars()" onclick="submitRating(2)">&#9734;</span>
-                                            <span style="font-size: 25px" onmouseover="highlightStars(3)" onmouseout="resetStars()" onclick="submitRating(3)">&#9734;</span>
-                                            <span style="font-size: 25px" onmouseover="highlightStars(4)" onmouseout="resetStars()" onclick="submitRating(4)">&#9734;</span>
-                                            <span style="font-size: 25px" onmouseover="highlightStars(5)" onmouseout="resetStars()" onclick="submitRating(5)">&#9734;</span>
+                                            <input type="radio" id="star5" name="note" value="5" /><label for="star5"></label>
+                                            <input type="radio" id="star4" name="note" value="4" /><label for="star4"></label>
+                                            <input type="radio" id="star3" name="note" value="3" /><label for="star3"></label>
+                                            <input type="radio" id="star2" name="note" value="2" /><label for="star2"></label>
+                                            <input type="radio" id="star1" name="note" value="1" /><label for="star1"></label>
                                         </div>
                                     </div>
+                                    {{-- <input type="hidden" name="note" id="avis_note" value="1"> --}}
+                                    <input type="hidden" name="livreur_id" id="livreur_id" value="{{$livreur->id}}">
                                     <br>
                                     <div class="d-flex">
                                         <span>Votre avis</span>
                                         <div class="ms-4">
-                                            <textarea class="form-control" name="" cols="30" id="" rows="3"></textarea>
+                                            <textarea class="form-control" name="comment" cols="30" id="" rows="3"></textarea>
                                         </div>
                                     </div>
                                     <br>
                                     <button type="submit" class="btn btn-warning btn-lg ml-5">Envoyer <i class="bi bi-send"></i></button>
-                                </div>
+                                </form>
+                                <style>
+                                    .rating {
+                                    display: inline-block;
+                                    unicode-bidi: bidi-override;
+                                    direction: rtl;
+                                    }
+                                    .rating input {
+                                    display: none;
+                                    }
+                                    .rating label {
+                                    cursor: pointer;
+                                    width: 20px;
+                                    font-size: 25px;
+                                    color: #ccc;
+                                    float: right;
+                                    }
+                                    .rating label:before {
+                                    content: '★';
+                                    }
+                                    .rating input:checked ~ label,
+                                    .rating:not(:checked) > label:hover ~ label {
+                                    color: #ffca08;
+                                    }
+                                    .rating input:checked ~ label:hover,
+                                    .rating label:hover ~ input:checked ~ label {
+                                    color: #ffdb58;
+                                    }
+
+                                </style>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -328,6 +376,19 @@
 
         </section>
 
+        <style>
+            @media only screen and (max-width: 768px) {
+                .serviceDiv{
+                    padding: 10px;
+                }
+            }
+            @media only screen and (min-width: 768px) {
+                .serviceDiv{
+                    justify-content: center;
+                }
+            }
+        </style>
+
         @include('layouts.footer')
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -356,6 +417,16 @@
 
         </script>
         @include('sweetalert::alert')
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Opération réussie!',
+                text: 'Votre action a été effectuée avec succès.',
+                timer: 1500,  // Durée en millisecondes après laquelle la notification se ferme automatiquement
+                showConfirmButton: false,  // Ne pas afficher le bouton "OK"
+                timerProgressBar: true  // Afficher une barre de progression du timer
+            });
+        </script>
     </body>
 </html>
 

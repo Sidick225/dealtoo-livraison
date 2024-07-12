@@ -23,25 +23,3 @@ $(document).ready(function() {
         e.preventDefault();
     });
 });
-
-
-
-
-function highlightStars(starCount) {
-    var stars = document.querySelectorAll('.rating > span');
-    for (var i = 0; i < starCount; i++) {
-        stars[i].innerHTML = '&#9733;'; // étoile pleine
-    }
-}
-
-function resetStars() {
-    var stars = document.querySelectorAll('.rating > span');
-    for (var i = 0; i < stars.length; i++) {
-        stars[i].innerHTML = '&#9734;'; // étoile vide
-    }
-}
-
-function submitRating(rating) {
-    document.getElementById('currentRating').textContent = rating;
-    document.getElementById('ratingMessage').style.display = 'block';
-}

@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Livreurs - Dealtoo</title>
+        <title>Livreurs - Deli</title>
         <link rel="shortcut icon" href="{{asset('assets/favicon.png')}}" type="image/x-icon">
         <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -19,7 +19,30 @@
     </head>
     <body>
         @include('layouts.header')
-
+        <div class="container">
+            <div class="searchwrapper">
+            <div class="searchbox">
+                <div class="row">
+                <div class="col-md-5 aBorder">
+                    <select class="form-control category">
+                        <option>Toute les categories</option>
+                        <option>Hotels</option>
+                        <option>Cafes</option>
+                        <option>Nightlife</option>
+                        <option>Restauarants</option>
+                    </select>
+                </div>
+                <div class="col-md-3 aBorder">
+                    <input type="text" class="form-control" placeholder="Quoi ?">
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" placeholder="Où ?">
+                </div>
+                <div class="col-md-1"><input type="button" class="btn btn-warning" class="form-control" value="Search"></div>
+                </div>
+            </div>
+            </div>
+        </div>
 
         <section class="pub">
 
@@ -27,8 +50,8 @@
 
 
         <section class="content">
-            <h1 style="margin-bottom:20px" data-aos="zoom-in" data-aos-duration="1000">
-                Les meilleures sociétés de livraison et courrier express à Abidjan et en Côte d’Ivoire
+            <h1 style="margin-bottom:20px">
+                Les meilleures sociétés de livraison et courrier express
             </h1>
 
             <p>
@@ -39,15 +62,34 @@
             <section class="row">
                 <div class="col-md-8" style="">
                     @foreach ($livreurs as $livreur)
-
-                        <div class="row mb-3 cardC" data-aos="zoom-in" data-aos-duration="1000">
+                        @if ($livreur->avis->count() > 0)
+                            @php
+                                $totalNotes = $livreur->avis->sum('note');
+                                $averageNote = ($totalNotes / ($livreur->avis->count() * 5)) * 5;
+                            @endphp
+                        @else
+                            @php
+                                $averageNote = 0;
+                            @endphp
+                        @endif
+                        <div class="row mb-3 cardC">
                             <div class="col-md-2 p-2">
                                 <img src="{{'images/'.$livreur->image_profil}}" alt="" width="100%; text-align:center">
+
+                                <div style="position: absolute;bottom:15px; font-weight:bolder">
+                                    Note: {{number_format($averageNote, 1)}}/5
+                                </div>
                             </div>
                             <div class="col-md-10 card p-0">
                                 <div class="card-header">
                                     <a href="{{route('livreurs.show', $livreur->id)}}" style="text-decoration: unset; color:unset">
-                                        <h2>{{$livreur->name}}</h2>
+                                        <h2>{{$livreur->nom_societe}}
+                                            @if ($livreur->certified == 1)
+                                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="green" viewBox="0 0 24 24">
+                                                <path fill-rule="evenodd" d="M12 2c-.791 0-1.55.314-2.11.874l-.893.893a.985.985 0 0 1-.696.288H7.04A2.984 2.984 0 0 0 4.055 7.04v1.262a.986.986 0 0 1-.288.696l-.893.893a2.984 2.984 0 0 0 0 4.22l.893.893a.985.985 0 0 1 .288.696v1.262a2.984 2.984 0 0 0 2.984 2.984h1.262c.261 0 .512.104.696.288l.893.893a2.984 2.984 0 0 0 4.22 0l.893-.893a.985.985 0 0 1 .696-.288h1.262a2.984 2.984 0 0 0 2.984-2.984V15.7c0-.261.104-.512.288-.696l.893-.893a2.984 2.984 0 0 0 0-4.22l-.893-.893a.985.985 0 0 1-.288-.696V7.04a2.984 2.984 0 0 0-2.984-2.984h-1.262a.985.985 0 0 1-.696-.288l-.893-.893A2.984 2.984 0 0 0 12 2Zm3.683 7.73a1 1 0 1 0-1.414-1.413l-4.253 4.253-1.277-1.277a1 1 0 0 0-1.415 1.414l1.985 1.984a1 1 0 0 0 1.414 0l4.96-4.96Z" clip-rule="evenodd"/>
+                                            </svg>
+                                            @endif
+                                        </h2>
                                     </a>
                                     <div class="d-flex">
                                         {{-- <button type="button" class="btn btn-success btn-sm">Ouvert <i class="bi bi-chevron-down"></i></button> --}}
@@ -58,38 +100,14 @@
                                             <table class="dropdown-menu table table">
                                                 <tbody>
                                                     <tr>
-                                                        <td>Lundi</td>
-                                                        <td class="text-center">{{$livreur->lundi_heure_debut}}- {{$livreur->lundi_heure_fin}}</td>
-                                                    </tr>
-                                                    <tr style="font-weight:bolder">
-                                                        <td>Mardi</td>
-                                                        <td class="text-center">{{$livreur->mardi_heure_debut}} - {{$livreur->mardi_heure_fin}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Mercredi</td>
-                                                        <td class="text-center">{{$livreur->mercredi_heure_debut}} - {{$livreur->mercredi_heure_fin}}</td>
-                                                    </tr>
-                                                    <tr>
                                                         <td>Jeudi</td>
-                                                        <td class="text-center">{{$livreur->jeudi_heure_debut}} - {{$livreur->jeudi_heure_fin}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Vendredi</td>
-                                                        <td class="text-center">{{$livreur->vendredi_heure_debut}} - {{$livreur->vendredi_heure_fin}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Samedi</td>
-                                                        <td class="text-center">{{$livreur->samedi_heure_debut}} - {{$livreur->samedi_heure_fin}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Dimanche</td>
-                                                        <td class="text-center">{{$livreur->dimanche_heure_debut}} - {{$livreur->dimanche_heure_fin}}</td>
+                                                        <td class="text-center">@if($livreur->jeudi_ferme) Fermé @else {{$livreur->jeudi_heure_debut}} - {{$livreur->jeudi_heure_fin}} @endif</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                         </div>
                                         <p class="mx-3 d-flex text-black mb-0 ms-auto" style="font-weight: bolder">
-                                            <i class="bi bi-phone"></i><span class="ms-2">{{$livreur->contact}}</span>
+                                            <i class="bi bi-phone"></i><span class="ms-2">{{$livreur->mobile1}}</span>
                                         </p>
                                     </div>
 
@@ -100,28 +118,28 @@
                                         {{-- <i class="bi bi-geo-alt"></i> --}}
                                         <div class="mx-3" style="max-width:80%">
                                             <p class="text-black" style="font-size:15px !important">
-                                                {{$livreur->presentaion}}
+                                                {{$livreur->presentation}}
                                             </p>
                                         </div>
                                     </div>
 
                                     <div class="ms-3 row">
                                         <a href="{{route('livreurs.show', $livreur->id)}}" style="text-decoration: unset; color:unset; display: contents;"><div class="col-md-4 d-flex clikable-item">
-                                            <span class="py-1" style="border-radius: 50%; border:1px solid orange; padding-inline:10px">
+                                            <span class="py-1" style="border-radius: 50%; border:1px solid rgb(255, 208, 0); padding-inline:10px">
                                                 {{-- <i class="bi bi-geo-alt"></i> --}}
-                                                <i class="bi bi-file-earmark" style="color: orange"></i>
+                                                <i class="bi bi-file-earmark" style="color: rgb(255, 208, 0)"></i>
                                             </span>
                                             <p class="m-2" style="font-size:15px !important">Voir la fiche</p>
                                         </div></a>
-                                        <a href="{{$livreur->map}}" style="text-decoration: unset; color:unset; display: contents;"><div class="col-md-4 d-flex clikable-item">
-                                            <span class="py-1" style="border-radius: 50%; border:1px solid orange; padding-inline:10px">
-                                                <i class="bi bi-geo-alt" style="color: orange"></i>
+                                        <a href="{{$livreur->map_link}}" style="text-decoration: unset; color:unset; display: contents;"><div class="col-md-4 d-flex clikable-item">
+                                            <span class="py-1" style="border-radius: 50%; border:1px solid rgb(255, 208, 0); padding-inline:10px">
+                                                <i class="bi bi-geo-alt" style="color: rgb(255, 208, 0)"></i>
                                             </span>
                                             <p class="m-2" style="font-size:15px !important">Localisation</p>
                                         </div></a>
                                         <a href="{{$livreur->site_web}}" style="text-decoration: unset; color:unset; display: contents;"><div class="col-md-4 d-flex clikable-item">
-                                            <span class="py-1" style="border-radius: 50%; border:1px solid orange; padding-inline:10px">
-                                                <i class="bi bi-globe" style="color: orange"></i>
+                                            <span class="py-1" style="border-radius: 50%; border:1px solid rgb(255, 208, 0); padding-inline:10px">
+                                                <i class="bi bi-globe" style="color: rgb(255, 208, 0)"></i>
                                             </span>
                                             <p class="m-2" style="font-size:15px !important">Site web</p>
                                         </div></a>
@@ -137,54 +155,18 @@
                     <div style="text-align:center">{{ $livreurs->links('vendor.pagination.bootstrap-4') }}</div>
 
                 </div>
-                <div id="sideBox" class="col-md-3 ms-auto" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQ8YWxdPM6ExHf5k1Lpk1sFxvliU-wRiRjDw&s'); background-position:center; background-size:cover">
-                    <br><br>
-                    <h1>ifneybune</h1>
-                    <br><br>
-                    <br><br>
-                    <br><br>
-                    <br><br>
-                    <br><br>
-                    <br><br>
-                    <br><br>
-                    <br><br>
-                    <br><br>
-                    <br><br>
-                    <br><br>
-                    <br><br>
-                    <br><br>
-                    <br><br>
-                    <br><br>
-                    <br><br>
-                    <br><br>
+                @if (count($livreurs) > 1)
+                <div id="sideBox" class="sideBox col-md-3 ms-auto" style="height:90vh; background-image: url('{{asset('images').'/'.$pubPicture}}'); background-position:center; background-size:cover">
                     <br><br>
                 </div>
+                @endif
             </section>
         </section>
 
         @include('layouts.footer')
 
         <div style="position: relative;">
-            <div id="sideBoxBottom" class="col-md-3 d-none" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQ8YWxdPM6ExHf5k1Lpk1sFxvliU-wRiRjDw&s'); background-position:center; background-size:cover">
-                <br><br>
-                <h1>ifneybune</h1>
-                <br><br>
-                <br><br>
-                <br><br>
-                <br><br>
-                <br><br>
-                <br><br>
-                <br><br>
-                <br><br>
-                <br><br>
-                <br><br>
-                <br><br>
-                <br><br>
-                <br><br>
-                <br><br>
-                <br><br>
-                <br><br>
-                <br><br>
+            <div id="sideBoxBottom" class="sideBox col-md-3 d-none" style="height:90vh; background-image: url('{{asset('images').'/'.$pubPicture}}'); background-position:center; background-size:cover">
                 <br><br>
             </div>
         </div>
@@ -240,11 +222,6 @@
                 }
 
             })
-        </script>
-        <script>
-            AOS.init({
-                once: true
-            });
         </script>
         @include('sweetalert::alert')
     </body>

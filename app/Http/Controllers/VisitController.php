@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Avis;
-use App\Models\Livreur;
+use App\Models\Visit;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
 
-class AvisController extends Controller
+class VisitController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -30,30 +28,21 @@ class AvisController extends Controller
      */
     public function store(Request $request)
     {
-        $avis = Avis::create([
-            'livreur_id' => $request->livreur_id,
-            'note' => $request->note,
-            'comment' => $request->comment
-        ]);
-
-        Alert::success('Merci de nous avoir donner votre avis.');
-        return redirect()->back();
+        //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show($livreur_id)
+    public function show(Visit $visit)
     {
-        $livreur = Livreur::find($livreur_id);
-        $avis = Avis::where('livreur_id', $livreur_id)->get();
-        return view('dashboard.commentaires', compact('avis', 'livreur'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Avis $avis)
+    public function edit(Visit $visit)
     {
         //
     }
@@ -61,7 +50,7 @@ class AvisController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Avis $avis)
+    public function update(Request $request, Visit $visit)
     {
         //
     }
@@ -69,7 +58,7 @@ class AvisController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Avis $avis)
+    public function destroy(Visit $visit)
     {
         //
     }

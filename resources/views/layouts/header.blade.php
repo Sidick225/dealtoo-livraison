@@ -42,9 +42,9 @@
             <li class="nav-item">
                 <a class="nav-link disabled" href="#">Tarif</a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link " href="/registerLivreur">Inscrire un société</a>
-            </li>
+            </li> --}}
             @guest
                 <li class="nav-item">
                     <a class="nav-link" href="/login">Se connecter</a>
@@ -62,31 +62,6 @@
         </div>
       </nav>
     <div>
-        {{-- <section id="hero"> --}}
-            <div class="container" data-aos="zoom-in" data-aos-duration="1000">
-                <div class="searchwrapper">
-                <div class="searchbox">
-                    <div class="row">
-                    <div class="col-md-5 aBorder">
-                        <select class="form-control category">
-                            <option>Toute les categories</option>
-                            <option>Hotels</option>
-                            <option>Cafes</option>
-                            <option>Nightlife</option>
-                            <option>Restauarants</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3 aBorder">
-                        <input type="text" class="form-control" placeholder="Quoi ?">
-                    </div>
-                    <div class="col-md-3">
-                        <input type="text" class="form-control" placeholder="Où ?">
-                    </div>
-                    <div class="col-md-1"><input type="button" class="btn btn-warning" class="form-control" value="Search"></div>
-                    </div>
-                </div>
-                </div>
-            </div>
-            {{-- </section> --}}
+
     </div>
 </header>

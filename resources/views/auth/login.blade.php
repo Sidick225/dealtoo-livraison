@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Login Dealtoo Livraison</title>
+	<title>Login Deli</title>
    <!--Made with love by Mutiullah Samim -->
 
 	<!--Bootsrap 4 CDN-->
@@ -14,7 +14,7 @@
 
     <!--Fontawesome CDN-->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
+    <link rel="shortcut icon" href="{{asset('assets/favicon.png')}}" type="image/x-icon">
 	<!--Custom styles-->
 	<style>
         /* Made with love by Mutiullah Samim*/
@@ -114,7 +114,7 @@
 		<div class="card">
 			<div class="card-header">
 
-            <a href="/"><img class="mainLogo" src="{{asset('assets/thumb-816x460-logo-6659f6148571a.png')}}" alt="logo Dealtoo"></a>
+            <a href="/"><img class="mainLogo" src="{{asset('assets/thumb-816x460-logo-6659f6148571a.png')}}" alt="logo Deli"></a>
 				<div class="d-flex justify-content-end social_icon">
 					<span><i class="fab fa-facebook-square"></i></span>
 					<span><i class="fab fa-google-plus-square"></i></span>
@@ -131,13 +131,18 @@
 							<span class="input-group-text"><i class="fas fa-envelope"></i></span>
 						</div>
 						<input type="email" name="email" class="form-control" placeholder="Email">
-
+                        @error('email')
+                            <span style="color:red">{{$message}}</span>
+                        @enderror
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
 						<input type="password" name="password" class="form-control" placeholder="Mot de passe">
+                        @error('password')
+                            <span style="color:red">{{$message}}</span>
+                        @enderror
 					</div>
 					{{-- <div class="row align-items-center remember">
 						<input type="checkbox">Remember Me

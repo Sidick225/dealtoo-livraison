@@ -10,7 +10,12 @@ class Livreur extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'certified',
+        'valide',
+        'dfe',
+        'rccm',
+
+        'user_id',
         'email',
         'contact',
         'nom_societe',
@@ -29,10 +34,13 @@ class Livreur extends Model
         'map',
         'map_link',
         'servicePicture1',
+        'description1',
         'servicename1',
         'servicePicture2',
+        'description2',
         'servicename2',
         'servicePicture3',
+        'description3',
         'servicename3',
         'images',
 
@@ -51,5 +59,14 @@ class Livreur extends Model
         'samedi_heure_fin',
         'dimanche_heure_debut',
         'dimanche_heure_fin',
+
+
+        'lundi_ferme',
+        'mardi_ferme',
+        'mercredi_ferme',
+        'jeudi_ferme',
+        'vendredi_ferme',
+        'samedi_ferme',
+        'dimanche_ferme',
     ];
 }
