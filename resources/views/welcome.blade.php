@@ -20,29 +20,116 @@
     <body>
         @include('layouts.header')
         <div class="container">
-            <div class="searchwrapper">
-            <div class="searchbox">
-                <div class="row">
-                <div class="col-md-5 aBorder">
-                    <select class="form-control category">
-                        <option>Toute les categories</option>
-                        <option>Hotels</option>
-                        <option>Cafes</option>
-                        <option>Nightlife</option>
-                        <option>Restauarants</option>
-                    </select>
+            <form class="searchwrapper" action="/search" method="POST">
+                @csrf
+                <div class="searchbox">
+                    <div class="row">
+                    {{-- <div class="col-md-2 aBorder">
+                        <select class="form-control category">
+                            <option>Société</option>
+                            <option>Particulier</option>
+                        </select>
+                    </div> --}}
+                    <div class="col-md-4 aBorder">
+                        {{-- <select class="form-control category">
+                            <option>Spécification de note</option>
+                            <option>note >= 4</option>
+                            <option>note >= 3</option>
+                            <option>note >= 2</option>
+                            <option>note >= 1</option>
+                        </select> --}}
+                        <input type="text" name="searchTerm" class="form-control" placeholder="Recherche">
+                    </div>
+                    <div class="col-md-3 aBorder">
+                        <select class="form-control category" name="note">
+                            <option value=''>Spécification de note</option>
+                            <option value="4">note >= 4</option>
+                            <option value="3">note >= 3</option>
+                            <option value="2">note >= 2</option>
+                            <option value="1">note >= 1</option>
+                        </select>
+                        {{-- <input type="text" class="form-control" placeholder="Recherche"> --}}
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control category" name="location">
+                            <option value=''>Tout les pays</option>
+                            <option>Algérie</option>
+                            <option>Angola</option>
+                            <option>Bénin</option>
+                            <option>Botswana</option>
+                            <option>Burkina Faso</option>
+                            <option>Burundi</option>
+                            <option>Cameroun</option>
+                            <option>Cap-Vert</option>
+                            <option>République centrafricaine</option>
+                            <option>Tchad</option>
+                            <option>Comores</option>
+                            <option>Congo</option>
+                            <option>République démocratique du Congo</option>
+                            <option>Djibouti</option>
+                            <option>Égypte</option>
+                            <option>Guinée équatoriale</option>
+                            <option>Érythrée</option>
+                            <option>Éthiopie</option>
+                            <option>Gabon</option>
+                            <option>Gambie</option>
+                            <option>Ghana</option>
+                            <option>Guinée</option>
+                            <option>Guinée-Bissau</option>
+                            <option>Côte d'Ivoire</option>
+                            <option>Kenya</option>
+                            <option>Lesotho</option>
+                            <option>Libéria</option>
+                            <option>Libye</option>
+                            <option>Madagascar</option>
+                            <option>Malawi</option>
+                            <option>Mali</option>
+                            <option>Mauritanie</option>
+                            <option>Maurice</option>
+                            <option>Maroc</option>
+                            <option>Mozambique</option>
+                            <option>Namibie</option>
+                            <option>Niger</option>
+                            <option>Nigeria</option>
+                            <option>Rwanda</option>
+                            <option>Sénégal</option>
+                            <option>Seychelles</option>
+                            <option>Sierra Leone</option>
+                            <option>Somalie</option>
+                            <option>Afrique du Sud</option>
+                            <option>Soudan du Sud</option>
+                            <option>Soudan</option>
+                            <option>Tanzanie</option>
+                            <option>Togo</option>
+                            <option>Tunisie</option>
+                            <option>Ouganda</option>
+                            <option>Zambie</option>
+                            <option>Zimbabwe</option>
+                        </select>
+                        {{-- <select class="form-control" id="villes" name="villes">
+                            <option>Abidjan</option>
+                            <option>Bouaké</option>
+                            <option>Yamoussoukro</option>
+                            <option>San-Pédro</option>
+                            <option>Daloa</option>
+                            <option>Man</option>
+                            <option>Korhogo</option>
+                            <option>Odienné</option>
+                            <option>Divo</option>
+                            <option>Gagnoa</option>
+                        </select> --}}
+                        {{-- <input type="text" class="form-control" placeholder="Où ?"> --}}
+                    </div>
+                    <div class="col-md-2"><input type="submit" class="btn btn-warning" class="form-control" value="Chercher" style="float: right"></div>
+                    </div>
                 </div>
-                <div class="col-md-3 aBorder">
-                    <input type="text" class="form-control" placeholder="Quoi ?">
-                </div>
-                <div class="col-md-3">
-                    <input type="text" class="form-control" placeholder="Où ?">
-                </div>
-                <div class="col-md-1"><input type="button" class="btn btn-warning" class="form-control" value="Search"></div>
-                </div>
-            </div>
-            </div>
+            </form>
         </div>
+
+
+
+
+
 
         <section class="pub">
 
@@ -57,10 +144,32 @@
             <p>
                 Avec le développement du commerce en ligne en Côte d’Ivoire, se faire livrer un colis à domicile ou sur son lieu de travail est devenu une pratique courante pour de nombreux utilisateurs. Face à la demande de plus en plus croissante, les sociétés de livraison à Abidjan et en Côte d’Ivoire ont développé une formule express pour répondre aux cas urgents. Pour les entreprises, c’est une solution logistique très utile pour la satisfaction des clients. Vous recherchez un prestataire fiable pour vos besoins de livraison rapide ? Les meilleures sociétés de livraison express sont sur Go Africa Online.
             </p>
-
-            <br><br>
-            <section class="row">
+            <br>
+            <section id="livreursAffichage" class="row">
                 <div class="col-md-8" style="">
+                    @isset ($research)
+                        <script>
+                            window.onload = function() {
+                                var sectionToScrollTo = '#livreursAffichage';
+                                var element = document.querySelector(sectionToScrollTo);
+                                if(element) {
+                                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                }
+                            }
+                        </script>
+                        <div class="d-flex">
+                            <h5>Résultats de votre recherche {{$searchTerm?'\"'.$searchTerm.'\"':''}}</h5>
+                            <a href="/" class="ms-auto text-xl btn btn-warning">
+                                <i class="bi bi-x-lg"></i> &nbsp; fermer la recherche
+                            </a>
+                        </div>
+                        @if (count($livreurs) == 0)
+                            <br><br>
+                            <p class="text-center">Aucune société ne correspond à votre recherche. Veuillez revoir vos critères.</p>
+                        @endif
+                        <br>
+                    @endisset
+
                     @foreach ($livreurs as $livreur)
                         @if ($livreur->avis->count() > 0)
                             @php
@@ -127,19 +236,19 @@
                                         <a href="{{route('livreurs.show', $livreur->id)}}" style="text-decoration: unset; color:unset; display: contents;"><div class="col-md-4 d-flex clikable-item">
                                             <span class="py-1" style="border-radius: 50%; border:1px solid rgb(255, 208, 0); padding-inline:10px">
                                                 {{-- <i class="bi bi-geo-alt"></i> --}}
-                                                <i class="bi bi-file-earmark" style="color: rgb(255, 208, 0)"></i>
+                                                <i class="bi bi-file-earmark-text-fill" style="color: rgb(255, 208, 0)"></i>
                                             </span>
                                             <p class="m-2" style="font-size:15px !important">Voir la fiche</p>
                                         </div></a>
                                         <a href="{{$livreur->map_link}}" style="text-decoration: unset; color:unset; display: contents;"><div class="col-md-4 d-flex clikable-item">
                                             <span class="py-1" style="border-radius: 50%; border:1px solid rgb(255, 208, 0); padding-inline:10px">
-                                                <i class="bi bi-geo-alt" style="color: rgb(255, 208, 0)"></i>
+                                                <i class="bi bi-geo-alt-fill" style="color: rgb(255, 208, 0)"></i>
                                             </span>
                                             <p class="m-2" style="font-size:15px !important">Localisation</p>
                                         </div></a>
                                         <a href="{{$livreur->site_web}}" style="text-decoration: unset; color:unset; display: contents;"><div class="col-md-4 d-flex clikable-item">
                                             <span class="py-1" style="border-radius: 50%; border:1px solid rgb(255, 208, 0); padding-inline:10px">
-                                                <i class="bi bi-globe" style="color: rgb(255, 208, 0)"></i>
+                                                <i class="bi bi-globe-europe-africa" style="color: rgb(255, 208, 0)"></i>
                                             </span>
                                             <p class="m-2" style="font-size:15px !important">Site web</p>
                                         </div></a>

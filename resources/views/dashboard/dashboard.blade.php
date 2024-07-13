@@ -183,6 +183,12 @@
                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                     <div class="text-sm leading-5 text-gray-900">{{$livreur->fixe1}}</div>
                                     <div class="text-sm leading-5 text-gray-500">{{$livreur->mobile1}}</div>
+                                    <br>
+                                    <a href="{{route('livreurs.show', $livreur->id)}}">
+                                        <button type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                                            Voir la fiche société
+                                        </button>
+                                    </a>
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
@@ -217,10 +223,17 @@
                                             class="inline-flex  px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
                                             Authorisé sur Deli
                                         </span>
-                                        @else
+                                    @elseif ($livreur->valide == 0)
                                         <span
                                             class="inline-flex px-2 text-xs font-semibold leading-5 text-yellow-800 bg-yellow-100 rounded-full">
                                             En attente d'authorisation
+                                        </span>
+                                    @else
+                                        <span
+                                            class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">
+                                            Non authorisé:
+                                            <br>
+                                            {{$livreur->valide}}
                                         </span>
                                     @endif
                                     <br><br>
@@ -277,15 +290,33 @@
                                                 Authoriser
                                             </button>
                                         </form>
-                                    @elseif (Auth::user()->role != 3)
+                                        <form id="validationForm" action="/validation/{{$livreur->id}}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <input type="hidden" id="disallow" name="disallow">
+                                            <button type="submit" class="focus:outline-none text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-900">
+                                                Ne pas authoriser
+                                            </button>
+                                        </form>
+                                        <script>
+                                            document.getElementById('validationForm').addEventListener('submit', function(event) {
+                                                event.preventDefault();
+                                                var contenuPrompt = prompt('Raison du rejet :');
+                                                if (contenuPrompt !== null) {
+                                                    document.getElementById('disallow').value = contenuPrompt;
+                                                    this.submit();
+                                                }
+                                            });
+                                        </script>
+                                    @elseif (Auth::user()->id == $livreur->user_id)
                                         <a href="/registerLivreur/{{$livreur->id}}"><button type="button" class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900">
                                             Modifier
                                         </button></a>
                                         <br>
                                     @endif
-                                    <a href="{{route('livreurs.show', $livreur->id)}}">
+                                    <a href="{{route('messages.show', $livreur->id)}}">
                                         <button type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
-                                            Voir plus
+                                            Messages ({{$livreur->messages}})
                                         </button>
                                     </a>
                                     <br>

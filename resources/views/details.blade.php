@@ -127,6 +127,7 @@
 
 
                     <section class="row">
+                        <div id="topShowNormal">&nbsp;</div>
                         <div class="col-md-8">
                             <div class="card p-0 mt-5 mb-2" id="coordonnees" style="border-radius: 10px">
                                 <div class="card-body" style="">
@@ -290,7 +291,7 @@
                                     <div class="d-flex">
                                         <span class="p-2">Note</span>
                                         <div class="rating ms-5">
-                                            <input type="radio" id="star5" name="note" value="5" /><label for="star5"></label>
+                                            <input type="radio" id="star5" name="note" value="5" required/><label for="star5"></label>
                                             <input type="radio" id="star4" name="note" value="4" /><label for="star4"></label>
                                             <input type="radio" id="star3" name="note" value="3" /><label for="star3"></label>
                                             <input type="radio" id="star2" name="note" value="2" /><label for="star2"></label>
@@ -341,12 +342,14 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="card p-0 mt-5" style="border-radius: 10px">
+                            <div id="sideForm" class="card p-0 mt-5" style="border-radius: 10px">
                                 <div class="card-body" style="">
-                                    <h4>Contactez {{$livreur['name']}}</h4>
+                                    <h4>Contactez {{$livreur->nom_societe}}</h4>
                                     <br>
-                                    <form action="">
-                                        <select name="" id="" class="form-control mb-3">
+                                    <form action="/messages" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="livreur_id" value="{{$livreur->id}}">
+                                        <select name="objet" id="objet" class="form-control mb-3">
                                             <option>Demande d'information</option>
                                             <option>Demande de devis</option>
                                             <option>Demande de rendez-vous</option>
@@ -354,16 +357,16 @@
                                         </select>
                                         <div class="row">
                                             <div class="col">
-                                                <input type="text" class="form-control mb-3" placeholder="Votre prénom *">
+                                                <input type="text" name="prenom" class="form-control mb-3" placeholder="Votre prénom *">
                                             </div>
                                             <div class="col">
-                                                <input type="text" class="form-control mb-3" placeholder="Votre nom *">
+                                                <input type="text" name="nom" class="form-control mb-3" placeholder="Votre nom *">
                                             </div>
                                         </div>
 
-                                        <input type="text" class="form-control mb-3" placeholder="Votre email *">
-                                        <input type="text" class="form-control mb-3" placeholder="Votre numéro de téléphone *">
-                                        <textarea name="" id="" rows="5" class="form-control mb-3" placeholder="Votre message"></textarea>
+                                        <input type="text" name="email" class="form-control mb-3" placeholder="Votre email *">
+                                        <input type="text" name="contact" class="form-control mb-3" placeholder="Votre numéro de téléphone *">
+                                        <textarea name="message" id="message" rows="5" class="form-control mb-3" placeholder="Votre message"></textarea>
 
                                         <p>(* Champs obligatoires)</p>
 
@@ -371,6 +374,45 @@
                                     </form>
                                 </div>
                             </div>
+
+
+{{-- <div style="position: absolute; bottom: 0">
+    <div id="sideFormBottom">
+        <div class="card p-0 mt-5" style="border-radius: 10px">
+            <div class="card-body" style="">
+                <h4>Contactez {{$livreur->nom_societe}}</h4>
+                <br>
+                <form action="/messages" method="POST">
+                    @csrf
+                    <input type="hidden" name="livreur_id" value="{{$livreur->id}}">
+                    <select name="objet" id="objet" class="form-control mb-3">
+                        <option>Demande d'information</option>
+                        <option>Demande de devis</option>
+                        <option>Demande de rendez-vous</option>
+                        <option>Demande d'emploi</option>
+                    </select>
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" name="prenom" class="form-control mb-3" placeholder="Votre prénom *">
+                        </div>
+                        <div class="col">
+                            <input type="text" name="nom" class="form-control mb-3" placeholder="Votre nom *">
+                        </div>
+                    </div>
+
+                    <input type="text" name="email" class="form-control mb-3" placeholder="Votre email *">
+                    <input type="text" name="contact" class="form-control mb-3" placeholder="Votre numéro de téléphone *">
+                    <textarea name="message" id="message" rows="5" class="form-control mb-3" placeholder="Votre message"></textarea>
+
+                    <p>(* Champs obligatoires)</p>
+
+                    <button type="submit" class="btn btn-warning btn-lg" style="float: right">Envoyer <i class="bi bi-send"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> --}}
+
                         </div>
                     </section>
 
@@ -390,6 +432,59 @@
         </style>
 
         @include('layouts.footer')
+
+
+        <style>
+            .fixeee{
+                position: fixed;
+                top: 5%;
+                width: 24%;
+            }
+            .fixeeeBottom{
+                /* display: flex; */
+                position: absolute;
+                bottom: 0;
+            }
+        </style>
+
+        <script>
+            var fixedForm = document.getElementById('sideForm');
+
+            const targetElementD = document.getElementById('endOfFile');
+
+
+            window.addEventListener('scroll', function() {
+                var scrollPositionD = window.scrollY || window.pageYOffset;
+                var windowHeight = window.innerHeight;
+                // Vérifier si on a fait défiler jusqu'à l'élément à fixer
+                if (scrollPositionD >= windowHeight * 0.85) {
+                    fixedForm.classList.add('fixeee');
+                } else {
+                    fixedForm.classList.remove('fixeee');
+                    // fixedForm.classList.remove('fixeeeBottom');
+                }
+                const elementTopD = targetElementD.getBoundingClientRect().top;
+
+                // Hauteur de la fenêtre visible
+                const viewportHeight = window.innerHeight;
+
+                // Condition pour vérifier si l'élément est visible
+                if (elementTopD < viewportHeight && elementTopD > 0) {
+                    fixedForm.classList.add('fixeeeBottom');
+                    fixedForm.classList.remove('fixeee');
+                } else {
+                    fixedForm.classList.remove('fixeeeBottom');
+                    fixedForm.classList.add('fixeee');
+                }
+
+                    // Réinitialisation des classes si on est en haut de la page
+                if (scrollPositionD <= windowHeight * 0.85) {
+                    fixedForm.classList.remove('fixeee');
+                    fixedForm.classList.remove('fixeeeBottom');
+                }
+
+            })
+        </script>
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

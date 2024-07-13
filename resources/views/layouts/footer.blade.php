@@ -1,4 +1,4 @@
-<footer>
+<footer id="main_footer">
     <div class="row">
         <div class="col-md-3">
             <h4 class="footer-title">A propos</h4>

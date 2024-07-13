@@ -9,6 +9,7 @@ class Messages extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'livreur_id',
         'objet',
         'nom',
         'prenom',

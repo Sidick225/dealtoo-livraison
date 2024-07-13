@@ -36,6 +36,15 @@ class AvisController extends Controller
             'comment' => $request->comment
         ]);
 
+        $allAvis = Avis::where('livreur_id', $livreur_id)->get();
+        $totalNotes = $allAvis->sum('note');
+        $averageNote = ($totalNotes / ($allAvis->count() * 5)) * 5;
+
+        $livreur = Livreur::find($livreur_id);
+        $livreur->update([
+            'avgNote' => $averageNote
+        ]);
+
         Alert::success('Merci de nous avoir donner votre avis.');
         return redirect()->back();
     }

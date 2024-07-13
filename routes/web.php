@@ -3,6 +3,7 @@
 use App\Models\Avis;
 use App\Models\Visit;
 use App\Models\Livreur;
+use App\Models\Messages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AvisController;
@@ -30,6 +31,9 @@ Route::get('/', function () {
     $pubPicture = Avis::find(99)->pubPicture;
     return view('welcome', compact('livreurs', 'pubPicture'));
 })->name('welcome');
+
+
+Route::post('/search', [LivreurController::class, 'search'])->name('search');
 
 
 Route::get('/registerLivreur/{livreur?}', function ($livreur = null) {
@@ -100,6 +104,7 @@ Route::get('/dashboard', function () {
         foreach ($livreurs as $livreur) {
             $livreur->avis = Avis::where('livreur_id', $livreur->id)->get();
             $livreur->nbVisiteurs = Visit::where('livreur_id', $livreur->id)->count();
+            $livreur->messages = Messages::where('livreur_id', $livreur->id)->count();
         }
     }
 

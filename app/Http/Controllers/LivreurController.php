@@ -304,13 +304,48 @@ class LivreurController extends Controller
         return redirect()->back();
     }
 
+    public function search(Request $request){
+
+        $query = Livreur::query();
+
+        $query->where('valide', 1);
+
+        if ($request->location) {
+            $query->where('nom_societe', 'like', '%'.$request->searchTerm.'%');
+        }
+        if ($request->location) {
+            $query->where('localisation', 'like', $request->location);
+        }
+        if ($request->note) {
+            $query->where('avgNote', '>=', $request->note);
+        }
+
+        $livreurs = $query->paginate(10);
+        foreach ($livreurs as $livreur) {
+            $livreur->avis = Avis::where('livreur_id', $livreur->id)->get();
+        }
+        $pubPicture = Avis::find(99)->pubPicture;
+        $research = true;
+        $searchTerm = $request->searchTerm;
+
+        return view('welcome', compact('livreurs', 'research', 'pubPicture', 'searchTerm'));
+    }
+
     public function validation(Request $request, $livreur)
     {
         $livreur = Livreur::find($livreur);
         if (Auth::user()->role != 3) {
-            $livreur->update([
-                'valide' => 1
-            ]);
+
+            if ($request->disallow) {
+                $livreur->update([
+                    'valide' => $request->disallow
+                ]);
+            } else {
+                $livreur->update([
+                    'valide' => 1
+                ]);
+            }
+
         }
         Alert::success($livreur->nom_societe." est désormais disponible.");
         return redirect()->back();
