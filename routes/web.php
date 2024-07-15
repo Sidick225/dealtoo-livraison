@@ -98,7 +98,7 @@ Route::resource('messages', MessagesController::class);
 
 Route::get('/dashboard', function () {
     if (Auth::user()->role != 3) {
-        $livreurs = Livreur::orderBy('valide', 'asc')->get();
+        $livreurs = Livreur::get();
     }else{
         $livreurs = Livreur::where('user_id', Auth::user()->id)->get();
     }

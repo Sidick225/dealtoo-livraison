@@ -29,10 +29,10 @@
         <div>
             <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
-            <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-gray-200">
+            <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-black">
                 <div :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false" class="fixed inset-0 z-20 transition-opacity bg-black opacity-50 lg:hidden"></div>
 
-                <div :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'" class="fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 transform bg-gray-500 lg:translate-x-0 lg:static lg:inset-0">
+                <div :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'" class="fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 transform bg-black lg:translate-x-0 lg:static lg:inset-0">
                     <div class="flex items-center justify-center mt-8">
                         <div class="flex items-center">
                             {{-- <svg class="w-12 h-12" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,7 +46,7 @@
                     </div>
 
                     <nav class="mt-10">
-                        <a class="flex items-center px-6 py-2 mt-4 @if(Route::currentRouteName() == 'dashboard')) text-gray-100 bg-gray-700 bg-opacity-25 @else text-gray-100 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 @endif"
+                        <a class="flex items-center px-6 py-2 mt-4 @if(Route::currentRouteName() == 'dashboard')) text-gray-100 bg-yellow-500 @else text-gray-100 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 @endif"
                         href="{{route('dashboard')}}">
                             <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
@@ -60,7 +60,7 @@
                         </a>
 
                         @if (Auth::user()->role != 3)
-                            <a class="flex items-center px-6 py-2 mt-4 @if(Route::currentRouteName() == 'demande_certification')) text-gray-100 bg-gray-700 bg-opacity-25 @else text-gray-100 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 @endif"
+                            <a class="flex items-center px-6 py-2 mt-4 @if(Route::currentRouteName() == 'demande_certification')) text-gray-100 bg-yellow-500 @else text-gray-100 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 @endif"
                                 href="{{route('demande_certification')}}">
                                 <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke="currentColor">
@@ -88,7 +88,7 @@
                                     @endif
                                 @endisset
                             </a>
-                            <a class="flex items-center px-6 py-2 mt-4 @if(Route::currentRouteName() == 'registerLivreur')) text-gray-100 bg-gray-700 bg-opacity-25 @else text-gray-100 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 @endif"
+                            <a class="flex items-center px-6 py-2 mt-4 @if(Route::currentRouteName() == 'registerLivreur')) text-gray-100 bg-yellow-500 @else text-gray-100 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 @endif"
                                 href="{{route('registerLivreur')}}">
                                 <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -97,7 +97,7 @@
                                 </svg>
                                 <span class="mx-3">Ajouter une société de livraison</span>
                             </a>
-                            <a class="flex items-center px-6 py-2 mt-4 @if(Route::currentRouteName() == 'publicite')) text-gray-100 bg-gray-700 bg-opacity-25 @else text-gray-100 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 @endif"
+                            <a class="flex items-center px-6 py-2 mt-4 @if(Route::currentRouteName() == 'publicite')) text-gray-100 bg-yellow-500 @else text-gray-100 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 @endif"
                                 href="{{route('publicite')}}">
                                 <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"stroke="currentColor">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 9H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h6m0-6v6m0-6 5.419-3.87A1 1 0 0 1 18 5.942v12.114a1 1 0 0 1-1.581.814L11 15m7 0a3 3 0 0 0 0-6M6 15h3v5H6v-5Z"/>
@@ -105,7 +105,7 @@
                                 <span class="mx-3">Pub de société</span>
                             </a>
                             {{-- @else
-                            <a class="flex items-center px-6 py-2 mt-4 @if(Route::currentRouteName() == 'avis.show')) text-gray-100 bg-gray-700 bg-opacity-25 @else text-gray-100 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 @endif"
+                            <a class="flex items-center px-6 py-2 mt-4 @if(Route::currentRouteName() == 'avis.show')) text-gray-100 bg-yellow-500 @else text-gray-100 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 @endif"
                                 href="{{route('avis.show', Auth::user()->id)}}">
                                 <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
