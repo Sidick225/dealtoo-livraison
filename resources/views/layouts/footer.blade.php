@@ -45,9 +45,10 @@
         <div class="col-md-3">
 
             <h4 class="footer-title ">Suivez-nous sur</h4>
-            <ul class="list-unstyled list-inline mx-0 footer-nav social-list-footer social-list-color footer-nav-inline">
-                <li>
+            <ul class="d-flex list-unstyled list-inline mx-0 footer-nav social-list-footer social-list-color footer-nav-inline">
+                <li style="padding: 3px 0 3px 0; margin-inline:5px;">
                     <a class="icon-color fb"
+                        target="_blank"
                        data-bs-placement="top"
                        data-bs-toggle="tooltip"
                        href="https://www.facebook.com/dealtooo?mibextid=ZbWKwL"
@@ -56,8 +57,9 @@
                         <i class="fab fa-facebook"></i>
                     </a>
                 </li>
-                <li>
+                <li style="padding: 3px 0 3px 0; margin-inline:5px;">
                     <a class="icon-color tw"
+                        target="_blank"
                        data-bs-placement="top"
                        data-bs-toggle="tooltip"
                        href="https://twitter.com/Dealtoo_Off"
@@ -66,8 +68,9 @@
                         <i class="fab fa-twitter"></i>
                     </a>
                 </li>
-                <li>
+                <li style="padding: 3px 0 3px 0; margin-inline:5px; padding-top:0">
                     <a class="icon-color"
+                        target="_blank"
                        data-bs-placement="top"
                        data-bs-toggle="tooltip"
                        href="https://dughu.com/dealtoo"
@@ -76,8 +79,9 @@
                         <i><img style="height: 27.2px;" src="https://dealtoo.co/assets/image/icondughu.png" class="logo"></i>
                     </a>
                 </li>
-                <li>
+                <li style="padding: 3px 0 3px 0; margin-inline:5px;">
                     <a class="icon-color pin"
+                        target="_blank"
                        data-bs-placement="top"
                        data-bs-toggle="tooltip"
                        href="https://www.youtube.com/channel/UCERnjl6Q8vdwGi4LdpatDQQ"
@@ -86,8 +90,9 @@
                         <i class="fab fa-youtube"></i>
                     </a>
                 </li>
-                <li>
+                <li style="padding: 3px 0 3px 0; margin-inline:5px;">
                     <a class="icon-color tt"
+                        target="_blank"
                         data-bs-placement="top"
                         data-bs-toggle="tooltip"
                         href="https://www.tiktok.com/@dealtoo_officiel"
@@ -100,4 +105,32 @@
 
         </div>
     </div>
+    <style>
+        #main_footer{
+            .row{
+                .d-flex{
+                    a{
+                        color: #fff;
+                        font-size: 14px;
+                        width: 28px;
+                        display: inline-block;
+                        text-align: center;
+                        padding: 3px 0;
+                    }
+                    .fb{
+                        background: blue;
+                    }
+                    .tw{
+                        background: lightblue;
+                    }
+                    .pin{
+                        background: red;
+                    }
+                    .tt{
+                        background: #333;
+                    }
+                }
+            }
+        }
+    </style>
 </footer>
