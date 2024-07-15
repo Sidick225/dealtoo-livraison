@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Login Deli</title>
+	<title>Connexion Deli</title>
    <!--Made with love by Mutiullah Samim -->
 
 	<!--Bootsrap 4 CDN-->

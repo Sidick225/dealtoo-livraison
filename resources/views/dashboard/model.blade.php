@@ -204,13 +204,13 @@
                                 <div @click="dropdownOpen = ! dropdownOpen" class="flex" style="cursor: pointer">
                                     <span class="m-auto">{{Auth::user()->name}}</span>
                                     <button
-                                        class="relative block ms-2 w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none">
+                                        class="relative block ms-2 w-12 h-12 overflow-hidden rounded-full shadow focus:outline-none">
                                         <img class="object-cover w-full h-full"
-                                            src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=296&amp;q=80"
+                                            src="{{asset('images'. '/' .Auth::user()->profile)}}"
                                             alt="Your avatar">
 
                                     </button>
-                                    <svg class="w-6 h-6 mt-1 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <svg class="w-6 h-6 mt-3 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
                                     </svg>
                                 </div>
@@ -219,7 +219,7 @@
                                     style="display: none;"></div>
 
                                 <div x-show="dropdownOpen"
-                                    class="absolute right-0 z-10 w-48 mt-2 pt-3 overflow-hidden bg-white rounded-md shadow-xl"
+                                    class="absolute right-0 z-10 w-48 mt-10 pt-3 overflow-hidden bg-white rounded-md shadow-xl"
                                     style="display: none;">
                                     <a href="{{route('profile.edit')}}"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-yellow-400 hover:text-white">Profile</a>

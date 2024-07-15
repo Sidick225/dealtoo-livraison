@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Login Deli</title>
+	<title>Inscription Deli</title>
    <!--Made with love by Mutiullah Samim -->
 
 	<!--Bootsrap 4 CDN-->
@@ -59,8 +59,8 @@
 
         .social_icon{
         position: absolute;
-        right: 20px;
-        top: -25px;
+        right: -20px;
+        top: -55px;
         }
 
         .input-group-prepend span{
@@ -114,69 +114,78 @@
 		<div class="card">
 			<div class="card-header">
 
-            <a href="/"><img class="mainLogo" src="{{asset('assets/thumb-816x460-logo-6659f6148571a.png')}}" alt=""></a>
-				<div class="d-flex justify-content-end social_icon">
-					<span><i class="fab fa-facebook-square"></i></span>
-					<span><i class="fab fa-google-plus-square"></i></span>
-					<span><i class="fab fa-twitter-square"></i></span>
-				</div>
+                <a href="/"><img class="mainLogo" src="{{asset('assets/thumb-816x460-logo-6659f6148571a.png')}}" alt=""></a>
+                <div class="d-flex justify-content-end social_icon">
+                    <img id="profilePreview" src="" alt="" style="max-height: 100px; max-height: 100px">
+                </div>
 			</div>
 
             <h3 style="text-align: center; color:white; margin-top: 5px">Inscription</h3>
 			<div class="card-body">
-				<form action="{{ route('register') }}" method="POST">
+				<form action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
                     @csrf
+
+                    <label for="profile" class="text-white">Image de profil</label>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-						<input type="text" name="name" class="form-control" placeholder="Nom et prénoms">
-
+						<input type="file" name="profile" id="profile" class="form-control" required>
 					</div>
+                    @error('profile')
+                        <span style="color:red">{{$message}}</span>
+                    @enderror
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-user"></i></span>
+						</div>
+                        <input type="text" name="name" class="form-control" placeholder="Nom et prénoms" required>
+					</div>
+                    @error('name')
+                        <span style="color:red">{{$message}}</span>
+                    @enderror
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-envelope"></i></span>
 						</div>
-						<input type="email" name="email" class="form-control" placeholder="Email">
-
+						<input type="email" name="email" class="form-control" placeholder="Email" required>
 					</div>
+                    @error('email')
+                        <span style="color:red">{{$message}}</span>
+                    @enderror
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-mobile"></i></span>
 						</div>
-						<input type="text" name="contact" max="15" class="form-control" placeholder="Contact">
-
+						<input type="text" name="contact" max="15" class="form-control" placeholder="Contact" required>
 					</div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-user"></i></span>
-						</div>
-                        <select name="role" id="role" class="form-control">
-                            <option value="">-- rôle --</option>
-                            <option value="3">Utilsiateur</option>
-                            <option value="2">Admin</option>
-                            <option value="1">Super Admin</option>
-                        </select>
-
-					</div>
+                    @error('contact')
+                        <span style="color:red">{{$message}}</span>
+                    @enderror
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
-						<input type="password" name="password" class="form-control" placeholder="Mot de passe">
+						<input type="password" name="password" class="form-control" placeholder="Mot de passe" required>
 					</div>
+                    @error('password')
+                        <span style="color:red">{{$message}}</span>
+                    @enderror
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
-						<input type="password" name="password_confirmation" class="form-control" placeholder="Confirmer le mot de passe">
+						<input type="password" name="password_confirmation" class="form-control" placeholder="Confirmer le mot de passe" required>
 					</div>
+                    @error('password_confirmation')
+                        <span style="color:red">{{$message}}</span>
+                    @enderror
 					{{-- <div class="row align-items-center remember">
 						<input type="checkbox">Remember Me
 					</div> --}}
                     <br>
 					<div class="form-group">
-						<input type="submit" value="Enregistrer" class="btn float-right login_btn">
+						<input type="submit" value="S'inscrire" class="btn float-right login_btn">
 					</div>
 				</form>
 			</div>
@@ -188,58 +197,22 @@
 		</div>
 	</div>
 </div>
+
+<script>
+document.getElementById('profile').addEventListener('change', function() {
+    var input = document.getElementById('profile');
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            document.getElementById('profilePreview').src = e.target.result;
+            document.getElementById('profilePreview').style.display = 'block'; // Pour afficher l'élément
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+});
+
+</script>
 </body>
 </html>
-
-{{-- <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
-
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
-
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout> --}}
