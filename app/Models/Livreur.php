@@ -14,7 +14,8 @@ class Livreur extends Model
         'valide',
         'dfe',
         'rccm',
-
+        'pays',
+        'avgNote',
         'user_id',
         'email',
         'contact',

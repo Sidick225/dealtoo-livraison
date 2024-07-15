@@ -171,15 +171,78 @@
                                 <p class="mt-1 text-sm leading-6 text-gray-600">This information will be displayed publicly so be careful what you share.</p> --}}
 
                                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                                    <div class="sm:col-span-4">
+                                    <div class="sm:col-span-3">
                                         <label for="nom_societe" class="block text-sm font-medium leading-6 text-gray-900">Nom de société</label>
                                         <div class="mt-2">
                                             <div class="flex rounded-md shadow-sm ring-1 bg-white ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                                            <input type="text" name="nom_societe" id="nom_societe" value="{{$livreur->nom_societe}}" autocomplete="nom_societe" class="px-2 block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                                            <input type="text" name="nom_societe" id="nom_societe" value="" autocomplete="nom_societe" class="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                             placeholder="Nom de votre société de livraison">
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="sm:col-span-3">
+                                        <label for="pays" class="block text-sm font-medium leading-6 text-gray-900">Pays d'exercice</label>
+                                        <div class="mt-2">
+                                            <div class="flex rounded-md shadow-sm ring-1 bg-white ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                                                <select name="pays" id="pays" class="px-2 block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
+                                                    <option value=''>Choisir un pays</option>
+                                                    <option>Algérie</option>
+                                                    <option>Angola</option>
+                                                    <option>Bénin</option>
+                                                    <option>Botswana</option>
+                                                    <option>Burkina Faso</option>
+                                                    <option>Burundi</option>
+                                                    <option>Cameroun</option>
+                                                    <option>Cap-Vert</option>
+                                                    <option>République centrafricaine</option>
+                                                    <option>Tchad</option>
+                                                    <option>Comores</option>
+                                                    <option>Congo</option>
+                                                    <option>République démocratique du Congo</option>
+                                                    <option>Djibouti</option>
+                                                    <option>Égypte</option>
+                                                    <option>Guinée équatoriale</option>
+                                                    <option>Érythrée</option>
+                                                    <option>Éthiopie</option>
+                                                    <option>Gabon</option>
+                                                    <option>Gambie</option>
+                                                    <option>Ghana</option>
+                                                    <option>Guinée</option>
+                                                    <option>Guinée-Bissau</option>
+                                                    <option>Côte d'Ivoire</option>
+                                                    <option>Kenya</option>
+                                                    <option>Lesotho</option>
+                                                    <option>Libéria</option>
+                                                    <option>Libye</option>
+                                                    <option>Madagascar</option>
+                                                    <option>Malawi</option>
+                                                    <option>Mali</option>
+                                                    <option>Mauritanie</option>
+                                                    <option>Maurice</option>
+                                                    <option>Maroc</option>
+                                                    <option>Mozambique</option>
+                                                    <option>Namibie</option>
+                                                    <option>Niger</option>
+                                                    <option>Nigeria</option>
+                                                    <option>Rwanda</option>
+                                                    <option>Sénégal</option>
+                                                    <option>Seychelles</option>
+                                                    <option>Sierra Leone</option>
+                                                    <option>Somalie</option>
+                                                    <option>Afrique du Sud</option>
+                                                    <option>Soudan du Sud</option>
+                                                    <option>Soudan</option>
+                                                    <option>Tanzanie</option>
+                                                    <option>Togo</option>
+                                                    <option>Tunisie</option>
+                                                    <option>Ouganda</option>
+                                                    <option>Zambie</option>
+                                                    <option>Zimbabwe</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
 
                                     <div class="col-span-full">
                                         <label for="presentation" class="block text-sm font-medium leading-6 text-gray-900">Présentation</label>
@@ -758,12 +821,74 @@
                                 <p class="mt-1 text-sm leading-6 text-gray-600">This information will be displayed publicly so be careful what you share.</p> --}}
 
                                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                                    <div class="sm:col-span-4">
+                                    <div class="sm:col-span-3">
                                         <label for="nom_societe" class="block text-sm font-medium leading-6 text-gray-900">Nom de société</label>
                                         <div class="mt-2">
                                             <div class="flex rounded-md shadow-sm ring-1 bg-white ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                                            <input type="text" name="nom_societe" id="nom_societe" value="" autocomplete="nom_societe" class="px-2 block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                                            <input type="text" name="nom_societe" id="nom_societe" value="" autocomplete="nom_societe" class="px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                             placeholder="Nom de votre société de livraison">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sm:col-span-3">
+                                        <label for="pays" class="block text-sm font-medium leading-6 text-gray-900">Pays d'exercice</label>
+                                        <div class="mt-2">
+                                            <div class="flex rounded-md shadow-sm ring-1 bg-white ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                                                <select name="pays" id="pays" class="px-2 block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
+                                                    <option value=''>Choisir un pays</option>
+                                                    <option>Algérie</option>
+                                                    <option>Angola</option>
+                                                    <option>Bénin</option>
+                                                    <option>Botswana</option>
+                                                    <option>Burkina Faso</option>
+                                                    <option>Burundi</option>
+                                                    <option>Cameroun</option>
+                                                    <option>Cap-Vert</option>
+                                                    <option>République centrafricaine</option>
+                                                    <option>Tchad</option>
+                                                    <option>Comores</option>
+                                                    <option>Congo</option>
+                                                    <option>République démocratique du Congo</option>
+                                                    <option>Djibouti</option>
+                                                    <option>Égypte</option>
+                                                    <option>Guinée équatoriale</option>
+                                                    <option>Érythrée</option>
+                                                    <option>Éthiopie</option>
+                                                    <option>Gabon</option>
+                                                    <option>Gambie</option>
+                                                    <option>Ghana</option>
+                                                    <option>Guinée</option>
+                                                    <option>Guinée-Bissau</option>
+                                                    <option>Côte d'Ivoire</option>
+                                                    <option>Kenya</option>
+                                                    <option>Lesotho</option>
+                                                    <option>Libéria</option>
+                                                    <option>Libye</option>
+                                                    <option>Madagascar</option>
+                                                    <option>Malawi</option>
+                                                    <option>Mali</option>
+                                                    <option>Mauritanie</option>
+                                                    <option>Maurice</option>
+                                                    <option>Maroc</option>
+                                                    <option>Mozambique</option>
+                                                    <option>Namibie</option>
+                                                    <option>Niger</option>
+                                                    <option>Nigeria</option>
+                                                    <option>Rwanda</option>
+                                                    <option>Sénégal</option>
+                                                    <option>Seychelles</option>
+                                                    <option>Sierra Leone</option>
+                                                    <option>Somalie</option>
+                                                    <option>Afrique du Sud</option>
+                                                    <option>Soudan du Sud</option>
+                                                    <option>Soudan</option>
+                                                    <option>Tanzanie</option>
+                                                    <option>Togo</option>
+                                                    <option>Tunisie</option>
+                                                    <option>Ouganda</option>
+                                                    <option>Zambie</option>
+                                                    <option>Zimbabwe</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>

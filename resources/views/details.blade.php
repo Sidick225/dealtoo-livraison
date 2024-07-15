@@ -48,8 +48,18 @@
                     <div class="profilImage">
                         <img src="{{asset('images') .'/'.$livreur->image_profil}}" alt="">
                         <div class="row">
+                            @php
+                                Carbon\Carbon::setLocale('fr');
+                                $dateActuelle = Carbon\Carbon::now();
+                                $jourDeLaSemaine = $dateActuelle->isoFormat('dddd');
+                            @endphp
+                            @if ($livreur->{$jourDeLaSemaine . '_ferme'})
+                                <button type="button" class="btn btn-danger btn-sm">Fermé</button>
+                            @else
+                                <button type="button" class="btn btn-success btn-sm">Ouvert</button>
+                            @endif
                             {{-- <button type="button" class="btn btn-success btn-sm">Ouvert <i class="bi bi-chevron-down"></i></button> --}}
-                            <div class="dropdown" style="bottom: 15px; left: 10px;">
+                            {{-- <div class="dropdown" style="bottom: 15px; left: 10px;">
                                 <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                   Ouvert
                                 </button>
@@ -85,7 +95,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
 
@@ -244,7 +254,16 @@
                                     <div class="d-flex">
                                         <h3 class="my-4">Nos horaires d'ouverture</h3>
                                         <div class="ms-auto" style="align-content:center;">
-                                            <button type="button" class="btn btn-success btn-sm">Ouvert</button>
+                                            @php
+                                                Carbon\Carbon::setLocale('fr');
+                                                $dateActuelle = Carbon\Carbon::now();
+                                                $jourDeLaSemaine = $dateActuelle->isoFormat('dddd');
+                                            @endphp
+                                            @if ($livreur->{$jourDeLaSemaine . '_ferme'})
+                                                <button type="button" class="btn btn-danger btn-sm">Fermé</button>
+                                            @else
+                                                <button type="button" class="btn btn-success btn-sm">Ouvert</button>
+                                            @endif
                                         </div>
                                     </div>
                                     <table class="table table">

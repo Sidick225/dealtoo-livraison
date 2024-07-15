@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Avis;
 use App\Models\Visit;
+use Carbon\Carbon;
 use App\Models\Livreur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -66,6 +67,7 @@ class LivreurController extends Controller
             'email' => $request->email,
             'contact' => $request->contact,
             'nom_societe' => $request->nom_societe,
+            'pays' => $request->pays,
             'presentation' => $request->presentation,
             // 'image_profil' => $request->image_profil,
             // 'image_couverture' => $request->image_couverture,
@@ -314,7 +316,7 @@ class LivreurController extends Controller
             $query->where('nom_societe', 'like', '%'.$request->searchTerm.'%');
         }
         if ($request->location) {
-            $query->where('localisation', 'like', $request->location);
+            $query->where('pays', 'like', $request->location);
         }
         if ($request->note) {
             $query->where('avgNote', '>=', $request->note);
@@ -369,6 +371,7 @@ class LivreurController extends Controller
                 'email' => $request->email,
                 'contact' => $request->contact,
                 'nom_societe' => $request->nom_societe,
+                'pays' => $request->pays,
                 'presentation' => $request->presentation,
                 // 'image_profil' => $request->image_profil,
                 // 'image_couverture' => $request->image_couverture,
@@ -421,6 +424,7 @@ class LivreurController extends Controller
                 'email' => $request->email,
                 'contact' => $request->contact,
                 'nom_societe' => $request->nom_societe,
+                'pays' => $request->pays,
                 'presentation' => $request->presentation,
                 // 'image_profil' => $request->image_profil,
                 // 'image_couverture' => $request->image_couverture,

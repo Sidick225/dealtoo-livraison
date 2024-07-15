@@ -4,6 +4,7 @@ use App\Models\Avis;
 use App\Models\Visit;
 use App\Models\Livreur;
 use App\Models\Messages;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AvisController;
@@ -29,6 +30,7 @@ Route::get('/', function () {
         $livreur->avis = Avis::where('livreur_id', $livreur->id)->get();
     }
     $pubPicture = Avis::find(99)->pubPicture;
+
     return view('welcome', compact('livreurs', 'pubPicture'));
 })->name('welcome');
 

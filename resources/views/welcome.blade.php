@@ -201,8 +201,17 @@
                                         </h2>
                                     </a>
                                     <div class="d-flex">
-                                        {{-- <button type="button" class="btn btn-success btn-sm">Ouvert <i class="bi bi-chevron-down"></i></button> --}}
-                                        <div class="dropdown">
+                                        @php
+                                            Carbon\Carbon::setLocale('fr');
+                                            $dateActuelle = Carbon\Carbon::now();
+                                            $jourDeLaSemaine = $dateActuelle->isoFormat('dddd');
+                                        @endphp
+                                        @if ($livreur->{$jourDeLaSemaine . '_ferme'})
+                                            <button type="button" class="btn btn-danger btn-sm">Fermé</button>
+                                        @else
+                                            <button type="button" class="btn btn-success btn-sm">Ouvert</button>
+                                        @endif
+                                        {{-- <div class="dropdown">
                                             <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                               Ouvert
                                             </button>
@@ -214,7 +223,7 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                        </div>
+                                        </div> --}}
                                         <p class="mx-3 d-flex text-black mb-0 ms-auto" style="font-weight: bolder">
                                             <i class="bi bi-phone"></i><span class="ms-2">{{$livreur->mobile1}}</span>
                                         </p>

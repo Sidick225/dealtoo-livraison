@@ -201,7 +201,7 @@
                             </div> --}}
 
                             <div x-data="{ dropdownOpen: false }" class="relative flex">
-                                <div @click="dropdownOpen = ! dropdownOpen" class="flex">
+                                <div @click="dropdownOpen = ! dropdownOpen" class="flex" style="cursor: pointer">
                                     <span class="m-auto">{{Auth::user()->name}}</span>
                                     <button
                                         class="relative block ms-2 w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none">
