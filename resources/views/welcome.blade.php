@@ -248,13 +248,13 @@
                                             </span>
                                             <p class="m-2" style="font-size:15px !important">Voir la fiche</p>
                                         </div></a>
-                                        <a href="{{$livreur->map_link}}" style="text-decoration: unset; color:unset; display: contents;"><div class="col-md-4 d-flex clikable-item">
+                                        <a target="_blank" href="{{$livreur->map_link}}" style="text-decoration: unset; color:unset; display: contents;"><div class="col-md-4 d-flex clikable-item">
                                             <span class="py-1" style="border-radius: 50%; border:1px solid rgb(255, 208, 0); padding-inline:10px">
                                                 <i class="bi bi-geo-alt-fill" style="color: rgb(255, 208, 0)"></i>
                                             </span>
                                             <p class="m-2" style="font-size:15px !important">Localisation</p>
                                         </div></a>
-                                        <a href="{{$livreur->site_web}}" style="text-decoration: unset; color:unset; display: contents;"><div class="col-md-4 d-flex clikable-item">
+                                        <a target="_blank" href="{{$livreur->site_web}}" style="text-decoration: unset; color:unset; display: contents;"><div class="col-md-4 d-flex clikable-item">
                                             <span class="py-1" style="border-radius: 50%; border:1px solid rgb(255, 208, 0); padding-inline:10px">
                                                 <i class="bi bi-globe-europe-africa" style="color: rgb(255, 208, 0)"></i>
                                             </span>

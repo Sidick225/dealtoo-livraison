@@ -115,14 +115,10 @@
 			<div class="card-header">
 
             <a href="/"><img class="mainLogo" src="{{asset('assets/thumb-816x460-logo-6659f6148571a.png')}}" alt="logo Deli"></a>
-				<div class="d-flex justify-content-end social_icon">
-					<span><i class="fab fa-facebook-square"></i></span>
-					<span><i class="fab fa-google-plus-square"></i></span>
-					<span><i class="fab fa-twitter-square"></i></span>
-				</div>
+
 			</div>
 
-            <h3 style="text-align: center; color:white; margin-top: 5px">Connexion</h3>
+            <h3 style="text-align: center; color:white; margin-top: 25px">Connexion</h3>
 			<div class="card-body">
 				<form action="{{ route('login') }}" method="POST">
                     @csrf

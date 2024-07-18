@@ -14,6 +14,7 @@
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
             a{
                 text-decoration: unset;
@@ -181,9 +182,9 @@
                             <div class="card p-0 mt-5 mb-2" id="services" style="border-radius: 10px;">
                                 <div class="card-body" style="">
                                     <h3 class="my-4">Services</h3>
-                                    <div class="d-flex serviceDiv" style="overflow-x:auto;">
+                                    <div class="row serviceDiv">
                                         @if ($livreur->servicePicture1)
-                                            <div class="card" style="max-width: 220px">
+                                            <div class="card col-md-4" style="max-width: 220px">
                                                 <img class="card-img-top w-full" style="height: 70%; object-fit:cover; object-position:center" src="{{asset('images') .'/'.$livreur->servicePicture1}}" alt="Card image cap">
                                                 <div class="card-body p-2">
                                                 <p class="card-title text-center text-sm">{{$livreur->servicename1}}</p>
@@ -191,7 +192,7 @@
                                             </div>
                                         @endif
                                         @if ($livreur->servicePicture2)
-                                            <div class="ms-2 card" style="max-width: 220px">
+                                            <div class="ms-2 card col-md-4" style="max-width: 220px">
                                                 <img class="card-img-top w-full" style="height: 70%; object-fit:cover; object-position:center" src="{{asset('images') .'/'.$livreur->servicePicture2}}" alt="Card image cap">
                                                 <div class="card-body p-2">
                                                 <p class="card-title text-center text-sm">{{$livreur->servicename2}}</p>
@@ -199,7 +200,7 @@
                                             </div>
                                         @endif
                                         @if ($livreur->servicePicture3)
-                                            <div class="ms-2 card" style="max-width: 220px">
+                                            <div class="ms-2 card col-md-4" style="max-width: 220px">
                                                 <img class="card-img-top w-full" style="height: 70%; object-fit:cover; object-position:center" src="{{asset('images') .'/'.$livreur->servicePicture3}}" alt="Card image cap">
                                                 <div class="card-body p-2">
                                                 <p class="card-title text-center text-sm">{{$livreur->servicename3}}</p>

@@ -120,7 +120,7 @@
                 </div>
 			</div>
 
-            <h3 style="text-align: center; color:white; margin-top: 5px">Inscription</h3>
+            <h3 style="text-align: center; color:white; margin-top: 25px">Inscription</h3>
 			<div class="card-body">
 				<form action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
                     @csrf
